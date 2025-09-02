@@ -2,205 +2,71 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AceNodes - Minecraft Hosting</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AceNodes Store Demo</title>
   <style>
-    /* ==========================
-       RESET & BASE STYLES
-    ========================== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #121212;
-      color: #eee;
-      line-height: 1.6;
-    }
-    a {
-      color: #1db954;
-      text-decoration: none;
-      transition: color 0.3s ease, transform 0.3s ease;
-    }
-    a:hover, a:focus { text-decoration: underline; transform: scale(1.05); outline: none; }
+    /* RESET & BASE */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#121212; color:#eee; min-height:100vh; display:flex; flex-direction:column; }
 
-    /* ==========================
-       NAVBAR
-    ========================== */
+    a { color:#1db954; text-decoration:none; transition: transform 0.3s ease; }
+    a:hover, a:focus { text-decoration:underline; transform:scale(1.05); outline:none; }
+
+    /* NAVBAR */
     .navbar {
-      background: #222;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      min-height: 64px;
+      background:#222; display:flex; justify-content:space-between; align-items:center;
+      padding:1rem 2rem; position:sticky; top:0; z-index:100; min-height:64px;
     }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      font-weight: 700;
-      font-size: 1.6rem;
-      color: #34d058;
-      text-decoration: none;
-      transition: color 0.3s ease, text-shadow 0.3s ease;
-    }
-    .logo img {
-      height: 48px;
-      width: auto;
-      filter: drop-shadow(0 1px 3px rgba(0,0,0,0.4));
-      transition: filter 0.3s ease;
-    }
-    .logo:hover { color: #2ccf4f; text-shadow: 0 0 4px rgba(76,220,100,0.4); }
-    .logo:hover img { filter: drop-shadow(0 0 4px rgba(76,220,100,0.4)); }
-    .logo span { margin-left: -6px; line-height: 1; display: flex; align-items: center; }
+    .logo { display:flex; align-items:center; font-weight:700; font-size:1.6rem; color:#34d058; text-decoration:none; transition:color 0.3s ease, text-shadow 0.3s ease; }
+    .logo img { height:48px; width:auto; margin-right:8px; filter:drop-shadow(0 1px 3px rgba(0,0,0,0.4)); transition:filter 0.3s ease; }
+    .logo:hover { color:#2ccf4f; text-shadow:0 0 4px rgba(76,220,100,0.4); }
+    .logo:hover img { filter:drop-shadow(0 0 4px rgba(76,220,100,0.4)); }
 
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-    }
-    .nav-links li a {
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      cursor: pointer;
-      color: #1db954;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
-    }
-    .nav-links li a.active,
-    .nav-links li a:hover,
-    .nav-links li a:focus { background: #1db954; color: #121212; transform: scale(1.05); outline: none; }
+    .nav-links { list-style:none; display:flex; gap:1rem; margin:0; padding:0; align-items:center; }
+    .nav-links li a { padding:0.5rem 1rem; border-radius:4px; display:block; transition:background 0.3s, transform 0.3s; color:#34d058; font-weight:600; }
+    .nav-links li a.active, .nav-links li a:hover, .nav-links li a:focus { background:#1db954; color:#121212; transform:scale(1.05); }
 
-    /* ==========================
-       HERO SECTION
-    ========================== */
-    .hero {
-      background: url('https://i.imgur.com/J0kYqAv.jpg') no-repeat center center/cover;
-      height: 60vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 0 2rem;
-      color: #fff;
-    }
-    .hero h1 {
-      font-size: 3rem;
-      text-shadow: 0 0 10px rgba(0,0,0,0.7);
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s forwards;
-      animation-delay: 0.4s;
-    }
-    .hero p {
-      font-size: 1.25rem;
-      margin: 1rem 0 2rem;
-      text-shadow: 0 0 5px rgba(0,0,0,0.6);
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s forwards;
-      animation-delay: 0.8s;
-    }
-    .btn {
-      background: #1db954;
-      color: #121212;
-      padding: 0.75rem 1.5rem;
-      font-size: 1.1rem;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s ease, transform 0.3s ease;
-      text-decoration: none;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s forwards;
-      animation-delay: 1.2s;
-    }
-    .btn:hover, .btn:focus { background: #17a64a; transform: scale(1.05); outline: none; }
+    /* MAIN CONTENT */
+    main { flex:1; padding:2rem; display:flex; flex-direction:column; align-items:center; }
 
-    /* ==========================
-       PLANS OVERVIEW
-    ========================== */
-    .plans-overview { padding: 3rem 2rem; background: #1e1e1e; text-align: center; }
-    .plans-overview h2 { font-size: 2rem; color: #1db954; margin-bottom: 2rem; }
-    .plans-container { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
-    .plan-card {
-      background: #292929;
-      padding: 2rem;
-      border-radius: 8px;
-      max-width: 300px;
-      flex-grow: 1;
-      box-shadow: 0 0 15px rgba(0, 219, 84, 0.3);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .plan-card:hover, .plan-card:focus-within { transform: translateY(-6px); box-shadow: 0 0 25px rgba(29,185,84,0.7); outline: none; }
-    .plan-card h3 { font-size: 1.8rem; margin-bottom: 1rem; color: #1db954; }
-    .plan-card p { font-size: 1.4rem; font-weight: bold; margin-bottom: 1rem; }
-    .plan-card ul { list-style: none; margin-bottom: 1.5rem; line-height: 1.5; padding-left: 0; }
-    .plan-card ul li { padding-left: 1rem; position: relative; margin-bottom: 0.5rem; }
-    .plan-card ul li::before { content: '✔'; position: absolute; left: 0; color: #1db954; }
+    h1 { color:#1db954; margin-bottom:1.5rem; text-shadow:0 0 5px rgba(29,185,84,0.5); }
 
-    /* ==========================
-       BILLING BUTTONS
-    ========================== */
-    .billing-cycle-selector { text-align: center; margin: 20px 0; }
-    .billing-cycle-selector button {
-      background-color: #222; color: #fff; border: 1px solid #444;
-      padding: 8px 16px; margin: 5px; border-radius: 4px; cursor: pointer;
-      transition: background 0.3s ease; opacity: 0; transform: translateY(20px);
-      animation: fadeInUp 0.6s ease forwards;
-    }
-    .billing-cycle-selector button.active, .billing-cycle-selector button:hover { background-color: #444; }
-    .billing-cycle-selector button:nth-child(1){animation-delay:0.3s;}
-    .billing-cycle-selector button:nth-child(2){animation-delay:0.45s;}
-    .billing-cycle-selector button:nth-child(3){animation-delay:0.6s;}
-    .billing-cycle-selector button:nth-child(4){animation-delay:0.75s;}
+    .product { background:#1e1e1e; padding:1rem 1.5rem; border-radius:10px; margin-bottom:1rem; width:300px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 0 15px rgba(29,185,84,0.2); }
+    .product button { background:#1db954; color:#121212; border:none; border-radius:8px; padding:8px 12px; cursor:pointer; transition:transform 0.3s ease; }
+    .product button:hover { transform:scale(1.05); background:#17a64a; }
 
-    /* ==========================
-       FOOTER
-    ========================== */
-    footer {
-      text-align: center;
-      padding: 3rem 2rem 2rem;
-      background: #1a1a1a;
-      color: #ccc;
-      font-size: 0.95rem;
-    }
-    .footer-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 5rem; margin-bottom: 2rem; }
-    .footer-column { min-width: 150px; text-align: left; }
-    .footer-column h4 { margin-bottom: 1rem; font-size: 1.1rem; color: #1db954; border-bottom: 1px solid #333; padding-bottom: 0.5rem; }
-    .footer-column ul { list-style: none; padding: 0; }
-    .footer-column ul li { margin-bottom: 0.75rem; }
-    .footer-column ul li a { color: #34d058; text-decoration: none; transition: color 0.2s ease-in-out; }
-    .footer-column ul li a:hover { color: #00ffcc; text-decoration: underline; }
-    .footer-bottom { border-top: 1px solid #333; padding-top: 1rem; font-size: 0.85rem; color: #777; }
+    /* CART ICON */
+    #cart-icon { position: fixed; top:20px; right:20px; cursor:pointer; z-index:1000; font-size:1.3rem; }
+    #cart-count { color:#1db954; font-weight:bold; margin-left:4px; }
 
-    /* ==========================
-       ANIMATIONS
-    ========================== */
-    @keyframes fadeInUp {
-      to { opacity: 1; transform: translateY(0); }
+    /* CART PANEL */
+    #cart-panel {
+      position: fixed; top:0; right:-400px; width:350px; height:100%;
+      background:#1e1e1e; box-shadow:-3px 0 15px rgba(0,0,0,0.5);
+      transition:right 0.3s ease; padding:2rem; z-index:999; display:flex; flex-direction:column;
     }
+    #cart-panel h2 { color:#1db954; margin-bottom:1rem; }
+    #cart-items { flex-grow:1; overflow-y:auto; }
+    #cart-items div { display:flex; justify-content:space-between; margin-bottom:10px; color:#eee; }
+    #cart-items div button { margin-left:5px; background:red; color:#fff; border:none; border-radius:4px; cursor:pointer; }
 
-    /* ==========================
-       RESPONSIVE
-    ========================== */
-    @media(max-width:768px){
-      .nav-links { flex-direction: column; gap: 0.5rem; }
-      .plans-container { flex-direction: column; gap: 1.5rem; }
+    #checkout-btn { margin-top:1rem; padding:12px; border:none; border-radius:8px; background:#1db954; color:#121212; font-weight:bold; cursor:pointer; transition: transform 0.3s ease; }
+    #checkout-btn:hover { transform:scale(1.05); background:#17a64a; }
+
+    /* FOOTER */
+    footer { text-align:center; padding:2rem 1rem; background:#1a1a1a; color:#777; font-size:0.9rem; box-shadow:inset 0 1px 0 #333; margin-top:auto; }
+
+    .footer-columns { display:flex; justify-content:center; gap:4rem; margin-bottom:1rem; }
+    .footer-columns div { text-align:center; }
+    .footer-columns h4 { color:#00ff66; margin-bottom:0.5rem; font-size:1.1rem; }
+    .footer-columns a { color:white; text-decoration:none; transition:color 0.3s ease; }
+    .footer-columns a:hover { color:#00ff66; }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .product { width:100%; }
+      .nav-links { flex-direction:column; gap:0.5rem; }
+      .footer-columns { flex-direction:column; gap:1.5rem; }
     }
   </style>
 </head>
@@ -208,144 +74,122 @@
 
   <!-- NAVBAR -->
   <nav class="navbar">
-    <a href="#" class="logo"><img src="https://i.imgur.com/5KjJQz2.png" alt="Logo"><span>AceNodes</span></a>
+    <a href="#" class="logo">
+      <img src="https://i.postimg.cc/HWvg93ZN/Chat-GPT-Image-Aug-8-2025-10-06-33-AM.png" alt="AceNodes Logo">
+      <span>AceNodes</span>
+    </a>
     <ul class="nav-links">
-      <li><a href="#home" class="active">Home</a></li>
-      <li><a href="#plans">Plans</a></li>
-      <li><a href="#faq">FAQ</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Plans</a></li>
+      <li><a href="#">Custom Plan</a></li>
+      <li><a href="#">Server Status</a></li>
+      <li><a href="#">FAQ</a></li>
+      <li><a href="#" class="active">Store</a></li>
+      <li><a href="#">Contact</a></li>
     </ul>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero" id="home">
-    <h1>Welcome to AceNodes Hosting</h1>
-    <p>High performance Minecraft hosting made simple.</p>
-    <a href="#plans" class="btn">View Plans</a>
-  </section>
+  <!-- CART ICON -->
+  <div id="cart-icon">🛒<span id="cart-count">0</span></div>
 
-  <!-- PLANS -->
-  <section class="plans-overview" id="plans">
-    <h2>Our Plans</h2>
-    <div class="billing-cycle-selector">
-      <button class="active" data-cycle="monthly">Monthly</button>
-      <button data-cycle="quarterly">Quarterly</button>
-      <button data-cycle="semiannual">Semi-Annual</button>
-      <button data-cycle="annual">Annual</button>
+  <!-- CART PANEL -->
+  <div id="cart-panel">
+    <h2>Your Cart</h2>
+    <div id="cart-items"></div>
+    <p style="color:#eee; font-weight:bold;">Total: $<span id="cart-total">0</span></p>
+    <button id="checkout-btn">Checkout</button>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <h1>Our Products</h1>
+    <div class="product">
+      <span>Minecraft Server - Basic ($5)</span>
+      <button class="add-to-cart" data-name="Minecraft Server - Basic" data-price="5">Add</button>
     </div>
-    <div class="plans-container">
-      <div class="plan-card" data-price-monthly="$5/mo">
-        <h3>Starter</h3>
-        <p class="price">$5/mo</p>
-        <ul>
-          <li>1 GB RAM</li>
-          <li>1 vCPU</li>
-          <li>10 GB Storage</li>
-        </ul>
-        <a href="#" class="btn">Select</a>
-      </div>
-      <div class="plan-card" data-price-monthly="$10/mo">
-        <h3>Pro</h3>
-        <p class="price">$10/mo</p>
-        <ul>
-          <li>2 GB RAM</li>
-          <li>2 vCPU</li>
-          <li>25 GB Storage</li>
-        </ul>
-        <a href="#" class="btn">Select</a>
-      </div>
-      <div class="plan-card" data-price-monthly="$20/mo">
-        <h3>Ultra</h3>
-        <p class="price">$20/mo</p>
-        <ul>
-          <li>4 GB RAM</li>
-          <li>4 vCPU</li>
-          <li>50 GB Storage</li>
-        </ul>
-        <a href="#" class="btn">Select</a>
-      </div>
+    <div class="product">
+      <span>Minecraft Server - Pro ($15)</span>
+      <button class="add-to-cart" data-name="Minecraft Server - Pro" data-price="15">Add</button>
     </div>
-  </section>
+    <div class="product">
+      <span>Minecraft Server - Ultimate ($30)</span>
+      <button class="add-to-cart" data-name="Minecraft Server - Ultimate" data-price="30">Add</button>
+    </div>
+  </main>
 
   <!-- FOOTER -->
-  <footer id="contact">
-    <div class="footer-container">
-      <div class="footer-column">
-        <h4>Company</h4>
-        <ul>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Blog</a></li>
-        </ul>
-      </div>
-      <div class="footer-column">
+  <footer>
+    <div class="footer-columns">
+      <div>
         <h4>Support</h4>
-        <ul>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Terms</a></li>
-        </ul>
+        <a href="#">Support Discord</a>
       </div>
-      <div class="footer-column">
-        <h4>Follow Us</h4>
-        <ul>
-          <li><a href="#">Twitter</a></li>
-          <li><a href="#">Discord</a></li>
-          <li><a href="#">YouTube</a></li>
-        </ul>
+      <div>
+        <h4>Legal</h4>
+        <a href="#">Terms of Service</a><br>
+        <a href="#">Privacy Policy</a>
       </div>
     </div>
-    <div class="footer-bottom">&copy; 2025 AceNodes. All Rights Reserved.</div>
+    <p>&copy; 2025 AceNodes Minecraft Hosting. All rights reserved.</p>
   </footer>
 
   <script>
-    // ==========================
-    // NAVBAR ACTIVE LINK
-    // ==========================
-    const navLinks = document.querySelectorAll('.nav-links a');
-    navLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        navLinks.forEach(l => l.classList.remove('active'));
-        e.target.classList.add('active');
-      });
+    const cartIcon = document.getElementById('cart-icon');
+    const cartPanel = document.getElementById('cart-panel');
+    const cartItemsContainer = document.getElementById('cart-items');
+    const cartCount = document.getElementById('cart-count');
+    const cartTotal = document.getElementById('cart-total');
+    let cart = [];
+
+    // Toggle cart panel
+    cartIcon.addEventListener('click', () => {
+      cartPanel.style.right = cartPanel.style.right === '0px' ? '-400px' : '0px';
     });
 
-    // ==========================
-    // BILLING CYCLE SWITCH
-    // ==========================
-    const cycleButtons = document.querySelectorAll('.billing-cycle-selector button');
-    const planCards = document.querySelectorAll('.plan-card');
-
-    const prices = {
-      monthly: ["$5/mo","$10/mo","$20/mo"],
-      quarterly: ["$13/3mo","$27/3mo","$54/3mo"],
-      semiannual: ["$25/6mo","$50/6mo","$100/6mo"],
-      annual: ["$48/yr","$96/yr","$192/yr"]
-    };
-
-    cycleButtons.forEach((btn, i) => {
+    // Add to cart
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
       btn.addEventListener('click', () => {
-        cycleButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const cycle = btn.dataset.cycle;
-        planCards.forEach((card, index) => {
-          card.querySelector('.price').textContent = prices[cycle][index];
-        });
+        const name = btn.dataset.name;
+        const price = parseFloat(btn.dataset.price);
+        const existing = cart.find(item => item.name === name);
+        if (existing) {
+          existing.qty += 1;
+        } else {
+          cart.push({name, price, qty:1});
+        }
+        updateCart();
       });
     });
 
-    // ==========================
-    // SMOOTH SCROLL
-    // ==========================
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if(target) target.scrollIntoView({ behavior: 'smooth' });
+    function removeItem(name) {
+      cart = cart.filter(item => item.name !== name);
+      updateCart();
+    }
+
+    function updateCart() {
+      cartItemsContainer.innerHTML = '';
+      let total = 0, count = 0;
+      cart.forEach(item => {
+        total += item.price * item.qty;
+        count += item.qty;
+        const div = document.createElement('div');
+        div.innerHTML = `
+          <span>${item.name} x${item.qty}</span>
+          <span>$${(item.price*item.qty).toFixed(2)} <button>X</button></span>
+        `;
+        div.querySelector('button').addEventListener('click', ()=>removeItem(item.name));
+        cartItemsContainer.appendChild(div);
       });
+      cartCount.textContent = count;
+      cartTotal.textContent = total.toFixed(2);
+    }
+
+    document.getElementById('checkout-btn').addEventListener('click', () => {
+      if(cart.length===0) { alert("Cart is empty!"); return; }
+      alert("Thanks for your purchase!\nTotal: $"+cartTotal.textContent);
+      cart=[]; updateCart();
+      cartPanel.style.right='-400px';
     });
   </script>
-
 </body>
 </html>
