@@ -1,248 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AceNodes Cart + Checkout</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #121212;
-      color: #eee;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AceNodes Cart + Checkout</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #121212;
+    color: #eee;
+  }
 
-    /* Floating Cart Button */
-    .cart-button {
-      position: fixed;
-      top: 50%;
-      right: 20px;
-      transform: translateY(-50%);
-      background: #1db954;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-      transition: background 0.3s ease, transform 0.2s ease;
-      z-index: 200;
-    }
-    .cart-button:hover {
-      background: #17a64a;
-      transform: translateY(-50%) scale(1.05);
-    }
-    .cart-button svg {
-      width: 28px;
-      height: 28px;
-      fill: #121212;
-    }
+  /* Floating Cart Button */
+  .cart-button {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    background: #1db954;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1000;
+  }
+  .cart-button:hover { background: #17a64a; transform: translateY(-50%) scale(1.05);}
+  .cart-button svg { width:28px; height:28px; fill:#121212; }
 
-    /* Cart Panel */
-    .cart-panel {
-      position: fixed;
-      top: 0;
-      right: -320px;
-      width: 300px;
-      height: 100%;
-      background: #1e1e1e;
-      box-shadow: -2px 0 10px rgba(0,0,0,0.7);
-      transition: right 0.3s ease;
-      z-index: 300;
-      display: flex;
-      flex-direction: column;
-    }
-    .cart-panel.open {
-      right: 0;
-    }
+  /* Cart Panel */
+  .cart-panel {
+    position: fixed;
+    top:0;
+    right:-320px;
+    width:300px;
+    height:100%;
+    background:#1e1e1e;
+    box-shadow:-2px 0 10px rgba(0,0,0,0.7);
+    display:flex;
+    flex-direction:column;
+    transition: right 0.3s ease;
+    z-index: 900;
+  }
+  .cart-panel.open { right:0; }
 
-    /* Cart Header */
-    .cart-header {
-      background: #1db954;
-      color: #121212;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem;
-      font-weight: bold;
-    }
-    .close-cart {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      font-size: 1.4rem;
-      color: #121212;
-    }
+  .cart-header {
+    background:#1db954;
+    color:#121212;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:1rem;
+    font-weight:bold;
+  }
+  .close-cart { background:transparent; border:none; font-size:1.4rem; color:#121212; cursor:pointer; }
 
-    /* Cart Items */
-    .cart-items {
-      flex-grow: 1;
-      padding: 1rem;
-      overflow-y: auto;
-    }
-    .cart-items p {
-      color: #ccc;
-      font-size: 0.95rem;
-    }
+  .cart-items { flex-grow:1; padding:1rem; overflow-y:auto;}
+  .cart-items p { color:#ccc; font-size:0.95rem; }
 
-    /* Cart Footer */
-    .cart-footer {
-      padding: 1rem;
-      border-top: 1px solid #333;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .checkout-btn {
-      background: #1db954;
-      border: none;
-      color: #121212;
-      font-weight: bold;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    .checkout-btn:hover {
-      background: #17a64a;
-    }
+  .cart-footer { padding:1rem; border-top:1px solid #333; display:flex; justify-content:space-between; align-items:center;}
+  .checkout-btn { background:#1db954; border:none; color:#121212; font-weight:bold; padding:0.5rem 1rem; border-radius:4px; cursor:pointer;}
+  .checkout-btn:hover { background:#17a64a; }
 
-    /* Checkout Page Overlay */
-    .checkout-page {
-      position: fixed;
-      top: 0;
-      left: 100%;
-      width: 100%;
-      height: 100%;
-      background: #121212;
-      transition: left 0.4s ease;
-      z-index: 400;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .checkout-page.active {
-      left: 0;
-    }
+  /* Checkout overlay */
+  .checkout-page {
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(18,18,18,0.95);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index: 1001;
+  }
+  .checkout-page.active { display:flex; }
 
-    .checkout-box {
-      background: #1e1e1e;
-      padding: 2rem;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
-    }
-    .checkout-box h2 {
-      color: #1db954;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-    .checkout-box label {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 14px;
-      font-weight: bold;
-      color: #ccc;
-    }
-    .checkout-box input {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 6px;
-      border: 1px solid #333;
-      border-radius: 6px;
-      background: #2a2a2a;
-      color: #eee;
-    }
-    .error-msg {
-      color: #ff4d4d;
-      font-size: 12px;
-      margin-bottom: 8px;
-      display: none;
-    }
-    .checkout-box button {
-      width: 100%;
-      padding: 12px;
-      background: #1db954;
-      color: #121212;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      margin-top: 10px;
-    }
-    .checkout-box button:hover {
-      background: #17a64a;
-    }
+  .checkout-box {
+    background:#1e1e1e;
+    padding:2rem;
+    border-radius:12px;
+    width:90%;
+    max-width:400px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.6);
+  }
+  .checkout-box h2 { color:#1db954; margin-bottom:1rem; text-align:center;}
+  .checkout-box label { display:block; margin-bottom:6px; font-size:14px; font-weight:bold; color:#ccc;}
+  .checkout-box input { width:100%; padding:10px; margin-bottom:6px; border:1px solid #333; border-radius:6px; background:#2a2a2a; color:#eee;}
+  .error-msg { color:#ff4d4d; font-size:12px; margin-bottom:8px; display:none;}
 
-    .back-btn {
-      display: inline-block;
-      margin-top: 10px;
-      text-align: center;
-      background: transparent;
-      border: none;
-      color: #1db954;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .success-msg {
-      text-align: center;
-      color: #1db954;
-      font-size: 1.2rem;
-      margin-top: 10px;
-    }
-  </style>
+  .checkout-box button { width:100%; padding:12px; background:#1db954; color:#121212; border:none; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:10px;}
+  .checkout-box button:hover { background:#17a64a;}
+
+  .back-btn { display:inline-block; margin-top:10px; text-align:center; background:transparent; border:none; color:#1db954; cursor:pointer; font-size:14px;}
+  .success-msg { text-align:center; color:#1db954; font-size:1.2rem; margin-top:10px;}
+</style>
 </head>
 <body>
 
-  <!-- Cart Button -->
-  <div class="cart-button" id="cartBtn">
-    <svg viewBox="0 0 24 24">
-      <path d="M7 4h-2l-3 7v2h2l3-7h13v2h-12.6l-.7 2h13.3v2h-14l-.7 2h14.7v2h-16.6l1.3-4h-2l-1.3 4h-2v2h3.6c-.3.6-.6 1.3-.6 2 0 2.2 1.8 4 4 4s4-1.8 4-4c0-.7-.2-1.4-.6-2h5.2c-.4.6-.6 1.3-.6 2 0 2.2 1.8 4 4 4s4-1.8 4-4c0-.7-.2-1.4-.6-2h1.6v-2h-16.6l.7-2h14.7v-2h-13.3l.7-2h12.6v-2h-13zm0 16c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm10 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
-    </svg>
+<!-- Cart Button -->
+<div class="cart-button" id="cartBtn">
+  <svg viewBox="0 0 24 24"><path d="M7 4h-2l-3 7v2h2l3-7h13v2h-12.6l-.7 2h13.3v2h-14l-.7 2h14.7v2h-16.6l1.3-4h-2l-1.3 4h-2v2h3.6c-.3.6-.6 1.3-.6 2 0 2.2 1.8 4 4 4s4-1.8 4-4c0-.7-.2-1.4-.6-2h5.2c-.4.6-.6 1.3-.6 2 0 2.2 1.8 4 4 4s4-1.8 4-4c0-.7-.2-1.4-.6-2h1.6v-2h-16.6l.7-2h14.7v-2h-13.3l.7-2h12.6v-2h-13zm0 16c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm10 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+</div>
+
+<!-- Cart Panel -->
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-header">
+    <span>Your Cart</span>
+    <button class="close-cart" id="closeCart">←</button>
   </div>
-
-  <!-- Cart Panel -->
-  <div class="cart-panel" id="cartPanel">
-    <div class="cart-header">
-      <span>Your Cart</span>
-      <button class="close-cart" id="closeCart">←</button>
-    </div>
-    <div class="cart-items" id="cartItems">
-      <p>Your cart is empty.</p>
-    </div>
-    <div class="cart-footer">
-      <span id="cartTotal">Total: $0</span>
-      <button class="checkout-btn" id="goCheckout">Checkout</button>
-    </div>
+  <div class="cart-items" id="cartItems">
+    <p>Your cart is empty.</p>
   </div>
+  <div class="cart-footer">
+    <span id="cartTotal">Total: $0</span>
+    <button class="checkout-btn" id="goCheckout">Checkout</button>
+  </div>
+</div>
 
-  <!-- Checkout Page -->
-  <div class="checkout-page" id="checkoutPage">
-    <div class="checkout-box">
-      <h2>Checkout</h2>
-      <form id="checkoutForm">
-        <label for="name">Full Name</label>
-        <input type="text" id="name" required>
-        <span class="error-msg" id="nameError">Please enter your full name.</span>
+<!-- Checkout Page -->
+<div class="checkout-page" id="checkoutPage">
+  <div class="checkout-box">
+    <h2>Checkout</h2>
+    <form id="checkoutForm" novalidate>
+      <label for="name">Full Name</label>
+      <input type="text" id="name" required>
+      <span class="error-msg" id="nameError">Please enter your full name (first & last).</span>
 
-        <label for="email">Email</label>
-        <input type="email" id="email" required>
-        <span class="error-msg" id="emailError">Please enter a valid email.</span>
+      <label for="email">Email</label>
+      <input type="email" id="email" required>
+      <span class="error-msg" id="emailError">Please enter a valid email.</span>
 
-        <label for="address">Address</label>
-        <input type="text" id="address" required>
-        <span class="error-msg" id="addressError">Please enter your address.</span>
+      <label for="card">Card Number</label>
+      <input type="text" id="card" maxlength="16" required>
+      <span class="error-msg" id="cardError">Please enter a valid 16-digit card number.</span>
 
-        <label for="city">City</label>
-        <input type="text" id="city" required>
-        <span class="error-msg" id="cityError">Please enter your city.</span>
+      <label for="cvv">CVV</label>
+      <input type="text" id="cvv" maxlength="3" required>
+      <span class="error-msg" id="cvvError">Please enter a 3-digit CVV.</span>
 
-        <label for="zip">Zip Code</label>
-        <input type="text" id="zip" required>
-        <span class="error-msg" id="zipError">Please enter a valid zip code.</span>
+      <label for="expiry">Expiry (MM/YY)</label>
+      <input type="text" id="expiry" placeholder="MM/YY" required>
+      <span class="error-msg" id="expiryError">Please enter a valid expiry date.</span>
 
-        <label for="card">Card Number
+      <button type="submit">Confirm Purchase</button>
+    </form>
+    <button class="back-btn" id="backToCart">← Back to Cart</button>
+    <p class="success-msg" id="successMsg">✅ Purchase Successful!</p>
+  </div>
+</div>
+
+<script>
+const cartBtn = document.getElementById('cartBtn');
+const cartPanel = document.getElementById('cartPanel');
+const closeCart = document.getElementById('closeCart');
+const goCheckout = document.getElementById('goCheckout');
+const checkoutPage = document.getElementById('checkoutPage');
+const backToCart = document.getElementById('backToCart');
+const checkoutForm = document.getElementById('checkoutForm');
+const successMsg = document.getElementById('successMsg');
+
+// open/close cart
+cartBtn.addEventListener('click',()=>cartPanel.classList.add('open'));
+closeCart.addEventListener('click',()=>cartPanel.classList.remove('open'));
+
+// checkout overlay
+goCheckout.addEventListener('click',()=>{
+  cartPanel.classList.remove('open');
+  checkoutPage.classList.add('active');
+});
+backToCart.addEventListener('click',()=>{
+  checkoutPage.classList.remove('active');
+  cartPanel.classList.add('open');
+});
+
+// validation
+checkoutForm.addEventListener('submit', e=>{
+  e.preventDefault();
+  let valid=true;
+
+  const name=document.getElementById('name');
+  const email=document.getElementById('email');
+  const card=document.getElementById('card');
+  const cvv=document.getElementById('cvv');
+  const expiry=document.getElementById('expiry');
+
+  // Name validation (at least 2 words)
+  if(!name.value.trim().includes(' ')){document.getElementById('nameError').style.display='block'; valid=false;} else {document.getElementById('nameError').style.display='none';}
+
+  // Email
+  const emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!emailRegex.test(email.value)){document.getElementById('emailError').style.display='block'; valid=false;} else {document.getElementById('emailError').style.display='none';}
+
+  // Card
+  if(!/^\d{16}$/.test(card.value)){document.getElementById('cardError').style.display='block'; valid=false;} else {document.getElementById('cardError').style.display='none';}
+
+  // CVV
+  if(!/^\d{3}$/.test(cvv.value)){document.getElementById('cvvError').style.display='block'; valid=false;} else {document.getElementById('cvvError').style.display='none';}
+
+  // Expiry
+  if(!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry.value)){document.getElementById('expiryError').style.display='block'; valid=false;} else {document.getElementById('expiryError').style.display='none';}
+
+  if(valid){
+    successMsg.style.display='block';
+    setTimeout(()=>{
+      checkoutPage.classList.remove('active');
+      successMsg.style.display='none';
+      checkoutForm.reset();
+    },2000);
+  }
+});
+</script>
+</body>
+</html>
