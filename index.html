@@ -18,180 +18,52 @@
       z-index: 100;
       min-height: 64px;
     }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      font-weight: 700;
-      font-size: 1.6rem;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #34d058;
-      text-decoration: none;
-      transition: color 0.3s ease, text-shadow 0.3s ease;
-    }
-
-    .logo img {
-      height: 48px;
-      width: auto;
-      filter: drop-shadow(0 1px 3px rgba(0,0,0,0.4));
-      transition: filter 0.3s ease;
-    }
-
-    .logo:hover {
-      color: #2ccf4f;
-      text-shadow: 0 0 4px rgba(76, 220, 100, 0.4);
-    }
-
-    .logo:hover img {
-      filter: drop-shadow(0 0 4px rgba(76, 220, 100, 0.4));
-    }
-
-    .logo span {
-      margin-left: -6px;
-      line-height: 1;
-      display: flex;
-      align-items: center;
-    }
-
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 1rem;
-      margin: 0;
-      padding: 0;
-      flex-wrap: nowrap;
-      align-items: center;
-    }
-
-    .nav-links li a {
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      cursor: pointer;
-      color: #1db954;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      font-weight: 500;
-      transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
-    }
-
-    .nav-links li a:hover,
-    .nav-links li a:focus {
-      background: #1db954;
-      color: #121212;
-      transform: scale(1.05);
-      outline: none;
-    }
-
-    .nav-links li a.active {
-      background: #1db954;
-      color: #121212;
-      transform: scale(1.05);
-    }
-
-    /* === Disable navbar animations completely on home page === */
-    body.home .nav-links > li,
-    body.home .nav-links li a {
-      animation: none !important;
-      transition: none !important;
-      transform: none !important;
-      opacity: 1 !important;
-    }
+    .logo { display: flex; align-items: center; gap: 0; font-weight: 700; font-size: 1.6rem; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #34d058; text-decoration: none; transition: color 0.3s ease, text-shadow 0.3s ease; }
+    .logo img { height: 48px; width: auto; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.4)); transition: filter 0.3s ease; }
+    .logo:hover { color: #2ccf4f; text-shadow: 0 0 4px rgba(76, 220, 100, 0.4); }
+    .logo:hover img { filter: drop-shadow(0 0 4px rgba(76, 220, 100, 0.4)); }
+    .logo span { margin-left: -6px; line-height: 1; display: flex; align-items: center; }
+    .nav-links { list-style: none; display: flex; gap: 1rem; margin: 0; padding: 0; flex-wrap: nowrap; align-items: center; }
+    .nav-links li a { padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; color: #1db954; text-decoration: none; display: flex; align-items: center; font-weight: 500; transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease; }
+    .nav-links li a:hover, .nav-links li a:focus { background: #1db954; color: #121212; transform: scale(1.05); outline: none; }
+    .nav-links li a.active { background: #1db954; color: #121212; transform: scale(1.05); }
+    body.home .nav-links > li, body.home .nav-links li a { animation: none !important; transition: none !important; transform: none !important; opacity: 1 !important; }
 
     /* === Body and Hero styling === */
-    body {
-      margin: 0;
-      background-color: #121212;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #f0f0f0;
-    }
-
-    .hero {
-      padding: 80px 20px;
-      text-align: center;
-    }
-
-    .fade-in-text {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s forwards;
-    }
+    body { margin: 0; background-color: #121212; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #f0f0f0; }
+    .hero { padding: 80px 20px; text-align: center; }
+    .fade-in-text { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s forwards; }
     .fade-in-text.delay-1 { animation-delay: 0.4s; }
     .fade-in-text.delay-2 { animation-delay: 0.8s; }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .typing {
-      display: inline-block;
-      overflow: hidden;
-      border-right: 3px solid #34d058;
-      white-space: nowrap;
-      animation: typing 2.5s steps(40, end), blink 0.7s step-end infinite alternate;
-      font-weight: 700;
-    }
-
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+    .typing { display: inline-block; overflow: hidden; border-right: 3px solid #34d058; white-space: nowrap; animation: typing 2.5s steps(40, end), blink 0.7s step-end infinite alternate; font-weight: 700; }
     @keyframes typing { from { width: 0; } to { width: 100%; } }
     @keyframes blink { 50% { border-color: transparent; } }
+    .btn { display: inline-block; padding: 10px 20px; background-color: #00cc66; color: #fff; border-radius: 6px; text-decoration: none; margin-top: 20px; }
 
-    .btn {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #00cc66;
-      color: #fff;
-      border-radius: 6px;
-      text-decoration: none;
-      margin-top: 20px;
-    }
+    /* === Plans section === */
+    .plans-overview { padding: 60px 20px; text-align: center; }
+    .plans-container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+    .plan-card { background-color: #1a1a1a; padding: 20px; border-radius: 12px; width: 280px; }
 
-    .plans-overview {
-      padding: 60px 20px;
-      text-align: center;
-    }
-    .plans-container {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
-    }
-    .plan-card {
-      background-color: #1a1a1a;
-      padding: 20px;
-      border-radius: 12px;
-      width: 280px;
-    }
-
-    footer {
-      background-color: #242424;
-      padding: 30px 0 20px;
-      color: #fff;
-    }
-    .footer-container {
-      display: flex;
-      justify-content: center;
-      gap: 60px;
-      flex-wrap: wrap;
-    }
-    footer h4 {
-      color: #34d058;
-      margin-bottom: 10px;
-    }
+    /* === Footer styling === */
+    footer { background-color: #242424; padding: 30px 0 20px; color: #fff; }
+    .footer-container { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; }
+    footer h4 { color: #34d058; margin-bottom: 10px; }
     footer ul { list-style: none; padding: 0; margin: 0; }
-    footer ul li a {
-      color: #fff;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
+    footer ul li a { color: #fff; text-decoration: none; transition: color 0.3s ease; }
     footer ul li a:hover { color: #2ccf4f; }
     .footer-bottom { text-align: center; margin-top: 20px; color: #999; font-size: 0.9rem; }
+
+    /* === Cart system styling === */
+    #ace-cart { position: fixed; top: 50%; right: 20px; transform: translateY(-50%); z-index: 1000; font-family: sans-serif; }
+    #cartBtn { background:#1db954;color:#121212;border:none;padding:15px;border-radius:50%;cursor:pointer;font-size:20px; }
+    #cartPanel { display:none; position:fixed; top:0; right:0; width:300px; height:100%; background:#1e1e1e; color:#fff; padding:20px; box-shadow:-2px 0 10px rgba(0,0,0,0.7); overflow-y:auto; }
+    #cartPanel h3 { margin-top:0; margin-bottom:10px; }
+    #cartPanel p { margin:5px 0; }
+    #cartPanel button { background:#1db954;color:#121212;border:none;padding:8px;border-radius:6px;cursor:pointer;margin-top:10px; }
   </style>
 </head>
-
 <body class="home">
 
   <!-- Navbar -->
@@ -236,7 +108,7 @@
           <li>Instant Setup</li>
           <li>Free DDoS Protection</li>
         </ul>
-        <button class="btn order-btn" data-name="Starter" data-price="12">Order Now</button>
+        <a href="#" class="btn order-btn">Order Now</a>
       </article>
 
       <article class="plan-card">
@@ -252,7 +124,7 @@
           <li>Priority Support</li>
           <li>Free DDoS Protection</li>
         </ul>
-        <button class="btn order-btn" data-name="Pro" data-price="36">Order Now</button>
+        <a href="#" class="btn order-btn">Order Now</a>
       </article>
 
       <article class="plan-card">
@@ -269,7 +141,7 @@
           <li>24/7 Support & Monitoring</li>
           <li>Free DDoS Protection</li>
         </ul>
-        <button class="btn order-btn" data-name="Ultimate" data-price="72">Order Now</button>
+        <a href="#" class="btn order-btn">Order Now</a>
       </article>
     </div>
   </section>
@@ -291,144 +163,22 @@
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">
-      &copy; 2025 AceNodes Minecraft Hosting. All rights reserved.
-    </div>
+    <div class="footer-bottom">&copy; 2025 AceNodes Minecraft Hosting. All rights reserved.</div>
   </footer>
 
-  <!-- =========================
-       CART SYSTEM (scoped)
-       ========================= -->
-  <div class="ace-cart">
-    <style>
-      .ace-cart .cart-button {
-        position: fixed;
-        top: 50%;
-        right: -80px;
-        transform: translateY(-50%);
-        background: #1db954;
-        border-radius: 50%;
-        width: 60px;
-        height: 60px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        z-index: 1000;
-        transition: right 0.6s ease, transform 0.3s ease;
-      }
-      .ace-cart .cart-button:hover { transform: translateY(-50%) scale(1.05); background:#17a64a;}
-      .ace-cart .cart-button svg { width:28px; height:28px; fill:#121212; }
-      .ace-cart .cart-button.show { right: 20px; }
-
-      .ace-cart .cart-panel {
-        position: fixed;
-        top:0;
-        right:-320px;
-        width:300px;
-        height:100%;
-        background:#1e1e1e;
-        box-shadow:-2px 0 10px rgba(0,0,0,0.7);
-        display:flex;
-        flex-direction:column;
-        transition: right 0.3s ease;
-        z-index: 900;
-      }
-      .ace-cart .cart-panel.open { right:0; }
-
-      .ace-cart .cart-header {
-        background:#1db954;
-        color:#121212;
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        padding:1rem;
-        font-weight:bold;
-      }
-      .ace-cart .close-cart { background:transparent; border:none; font-size:1.4rem; color:#121212; cursor:pointer; }
-
-      .ace-cart .cart-items { flex-grow:1; padding:1rem; overflow-y:auto;}
-      .ace-cart .cart-items p { color:#ccc; font-size:0.95rem; }
-
-      .ace-cart .cart-footer { padding:1rem; border-top:1px solid #333; display:flex; justify-content:space-between; align-items:center;}
-      .ace-cart .checkout-btn { background:#1db954; border:none; color:#121212; font-weight:bold; padding:0.5rem 1rem; border-radius:4px; cursor:pointer;}
-      .ace-cart .checkout-btn:hover { background:#17a64a; }
-
-      /* Checkout overlay */
-      .ace-cart .checkout-page {
-        position: fixed;
-        top:0; left:0;
-        width:100%; height:100%;
-        background: rgba(18,18,18,0.95);
-        display:none;
-        justify-content:center;
-        align-items:center;
-        z-index: 1001;
-        opacity:0;
-        transition: opacity 0.4s ease;
-      }
-      .ace-cart .checkout-page.active { display:flex; opacity:1; }
-
-      .ace-cart .checkout-box {
-        background:#1e1e1e;
-        padding:2rem;
-        border-radius:12px;
-        width:90%;
-        max-width:400px;
-        box-shadow:0 6px 20px rgba(0,0,0,0.6);
-      }
-      .ace-cart .checkout-box h2 { color:#1db954; margin-bottom:1rem; text-align:center;}
-      .ace-cart .checkout-box label { display:block; margin-bottom:6px; font-size:14px; font-weight:bold; color:#ccc;}
-      .ace-cart .checkout-box input { width:100%; padding:10px; margin-bottom:6px; border:1px solid #333; border-radius:6px; background:#2a2a2a; color:#eee;}
-      .ace-cart .error-msg { color:#ff4d4d; font-size:12px; margin-bottom:8px; display:none;}
-
-      .ace-cart .checkout-box button { width:100%; padding:12px; background:#1db954; color:#121212; border:none; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:10px;}
-      .ace-cart .checkout-box button:hover { background:#17a64a;}
-      .ace-cart .back-btn { display:inline-block; margin-top:10px; text-align:center; background:transparent; border:none; color:#1db954; cursor:pointer; font-size:14px;}
-
-      /* Success page */
-      .ace-cart .success-page {
-        position: fixed;
-        top:0;
-        left:0;
-        width:100%;
-        height:100%;
-        background:#121212;
-        color:#1db954;
-        display:none;
-        justify-content:center;
-        align-items:center;
-        font-size:3rem;
-        z-index:2000;
-        text-align:center;
-        flex-direction:column;
-        animation: fadeIn 0.8s ease forwards;
-      }
-
-      @keyframes fadeIn {
-        0% { opacity:0; transform:scale(0.9);}
-        100% { opacity:1; transform:scale(1);}
-      }
-    </style>
-
-    <div class="cart-button" id="cartBtn" title="Open Cart">
-      🛒
-    </div>
-
-    <div class="cart-panel" id="cartPanel">
-      <div class="cart-header">
-        <span>Your Cart</span>
-        <button class="close-cart" id="closeCart">←</button>
-      </div>
-      <div class="cart-items" id="cartItems"><p>Your cart is empty.</p></div>
-      <div class="cart-footer">
-        <span id="cartTotal">Total: $0</span>
-        <button class="checkout-btn" id="goCheckout">Checkout</button>
-      </div>
+  <!-- Cart System -->
+  <div id="ace-cart">
+    <button id="cartBtn">🛒</button>
+    <div id="cartPanel">
+      <h3>Your Cart</h3>
+      <div id="cartItems"><p>Your cart is empty.</p></div>
+      <p id="cartTotal">Total: $0</p>
+      <button id="closeCart">Close</button>
     </div>
   </div>
 
   <script>
+    // Highlight active nav link
     document.addEventListener('DOMContentLoaded', () => {
       const currentPage = window.location.pathname.split('/').pop() || 'index.html';
       document.querySelectorAll('.nav-links a').forEach(link => {
@@ -437,45 +187,51 @@
         else link.classList.remove('active');
       });
 
-      // --- CART LOGIC ---
-      const cartRoot = document.querySelector('.ace-cart');
-      if(!cartRoot) return;
-      const cartBtn = cartRoot.querySelector('#cartBtn');
-      const cartPanel = cartRoot.querySelector('#cartPanel');
-      const closeCart = cartRoot.querySelector('#closeCart');
-      const goCheckout = cartRoot.querySelector('#goCheckout');
-      const cartItems = cartRoot.querySelector('#cartItems');
-      const cartTotal = cartRoot.querySelector('#cartTotal');
-
+      // --- Cart system ---
+      const cartBtn = document.getElementById('cartBtn');
+      const cartPanel = document.getElementById('cartPanel');
+      const closeCart = document.getElementById('closeCart');
+      const cartItemsDiv = document.getElementById('cartItems');
+      const cartTotalSpan = document.getElementById('cartTotal');
       const cart = [];
 
-      setTimeout(()=> cartBtn.classList.add('show'), 300);
-
-      cartBtn.addEventListener('click', ()=>{ cartPanel.classList.add('open'); cartBtn.style.display='none'; });
-      closeCart.addEventListener('click', ()=>{ cartPanel.classList.remove('open'); cartBtn.style.display='flex'; });
+      cartBtn.addEventListener('click',()=>{cartPanel.style.display='block';});
+      closeCart.addEventListener('click',()=>{cartPanel.style.display='none';});
 
       function renderCart(){
-        if(cart.length===0){ cartItems.innerHTML='<p>Your cart is empty.</p>'; cartTotal.textContent='Total: $0'; return; }
-        cartItems.innerHTML=''; let total=0;
-        cart.forEach((it,idx)=>{
-          total+=Number(it.price);
-          const row=document.createElement('div');
-          row.style.display='flex'; row.style.justifyContent='space-between'; row.style.marginBottom='10px';
-          row.innerHTML=`<span>${it.name}</span><span>$${Number(it.price).toFixed(2)} <button data-idx="${idx}" class="remove-item" style="margin-left:8px;background:#333;color:#fff;border:none;border-radius:4px;padding:2px 6px;cursor:pointer;">Remove</button></span>`;
-          cartItems.appendChild(row);
+        if(cart.length===0){
+          cartItemsDiv.innerHTML='<p>Your cart is empty.</p>';
+          cartTotalSpan.textContent='Total: $0';
+          return;
+        }
+        cartItemsDiv.innerHTML='';
+        let total=0;
+        cart.forEach((item,idx)=>{
+          total+=Number(item.price);
+          const div=document.createElement('div');
+          div.style.display='flex';
+          div.style.justifyContent='space-between';
+          div.style.marginBottom='10px';
+          div.innerHTML=`<span>${item.name}</span><span>$${Number(item.price).toFixed(2)} <button data-idx="${idx}">Remove</button></span>`;
+          cartItemsDiv.appendChild(div);
         });
-        cartTotal.textContent='Total: $'+total.toFixed(2);
-        cartItems.querySelectorAll('.remove-item').forEach(btn=>btn.addEventListener('click',()=>{cart.splice(Number(btn.getAttribute('data-idx')),1);renderCart();}));
+        cartTotalSpan.textContent='Total: $'+total.toFixed(2);
+        cartItemsDiv.querySelectorAll('button').forEach(btn=>{
+          btn.addEventListener('click',()=>{
+            const idx=Number(btn.getAttribute('data-idx'));
+            cart.splice(idx,1);
+            renderCart();
+          });
+        });
       }
 
-      document.querySelectorAll('.plans-overview .order-btn').forEach(btn=>{
-        btn.addEventListener('click', e=>{
-          e.preventDefault();
-          const name = btn.getAttribute('data-name') || btn.textContent.trim();
-          const price = btn.getAttribute('data-price') || '0';
-          cart.push({name, price:Number(price).toFixed(2)});
+      document.querySelectorAll('.plan-card .order-btn').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          const name = btn.closest('.plan-card').querySelector('h3').textContent;
+          const price = btn.closest('.plan-card').querySelector('p strong').textContent.replace(/[^\d.]/g,'');
+          cart.push({name,price:Number(price)});
           renderCart();
-          cartPanel.classList.add('open'); cartBtn.style.display='none';
+          cartPanel.style.display='block';
         });
       });
     });
