@@ -5,10 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AceNodes Cart System</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    /* Reset & Base */
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #f4f4f4;
+      color: #333;
+      min-height: 100vh;
     }
 
     /* Cart button */
@@ -90,6 +98,10 @@
       margin-bottom: 12px;
     }
 
+    .cart-item span {
+      font-size: 16px;
+    }
+
     .checkout {
       border-top: 1px solid #ddd;
       padding-top: 15px;
@@ -141,8 +153,7 @@
     </div>
     <div class="checkout">
       <h3>Total: $15</h3>
-      <!-- Checkout button goes to checkout.html -->
-      <button onclick="window.location.href='checkout.html'">Checkout</button>
+      <button id="checkoutBtn">Checkout</button>
     </div>
   </div>
 
@@ -150,6 +161,7 @@
     const cartBtn = document.getElementById('cartBtn');
     const cartSidebar = document.getElementById('cartSidebar');
     const closeCart = document.getElementById('closeCart');
+    const checkoutBtn = document.getElementById('checkoutBtn');
 
     // Open cart
     cartBtn.addEventListener('click', () => {
@@ -160,7 +172,15 @@
     closeCart.addEventListener('click', () => {
       cartSidebar.classList.remove('active');
     });
+
+    // Redirect to checkout page
+    checkoutBtn.addEventListener('click', () => {
+      window.location.href = "checkout.html";
+    });
   </script>
+
+</body>
+</html>
 
 </body>
 </html>
