@@ -1,12 +1,7 @@
-document.addEventListener('DOMContentLoaded',()=>{
-
+document.addEventListener('DOMContentLoaded', () => {
   // Create cart HTML dynamically
   const cartHTML = `
-    <div class="cart-button" id="cartBtn">
-      <svg viewBox="0 0 24 24">
-        <path d="M7 4h-2l-3 7v2h2l3-7h13v2h-12.6l-.7 2h13.3v2h-14l-.7 2h14.7v2h-16.6l1.3-4h-2l-1.3 4h-2v2h3.6c-.3.6-.6 1.3-.6 2 0 2.2 1.8 4 4 4s4-1.8 4-4c0-.7-.2-1.4-.6-2h5.2c-.4.6-.6 1.3-.6 2 0 2.2 1.8 4 4 4s4-1.8 4-4c0-.7-.2-1.4-.6-2h1.6v-2h-16.6l.7-2h14.7v-2h-13.3l.7-2h12.6v-2h-13zm0 16c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm10 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
-      </svg>
-    </div>
+    <div class="cart-button" id="cartBtn">🛒</div>
     <div class="cart-panel" id="cartPanel">
       <div class="cart-header">
         <span>Your Cart</span>
@@ -46,60 +41,91 @@ document.addEventListener('DOMContentLoaded',()=>{
   const successPage = document.getElementById('successPage');
   const checkoutForm = document.getElementById('checkoutForm');
 
-  let cart=[];
+  let cart = [];
 
-  setTimeout(()=>cartBtn.classList.add('show'),300);
+  // Show cart button animation
+  setTimeout(() => cartBtn.classList.add('show'), 300);
 
-  cartBtn.addEventListener('click',()=>cartPanel.classList.toggle('open'));
-  closeCart.addEventListener('click',()=>cartPanel.classList.remove('open'));
+  // Toggle cart panel
+  cartBtn.addEventListener('click', () => cartPanel.classList.toggle('open'));
+  closeCart.addEventListener('click', () => cartPanel.classList.remove('open'));
 
-  document.querySelectorAll('.plan-card .btn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const plan=btn.parentElement.querySelector('h3').innerText;
-      const price=parseFloat(btn.parentElement.querySelector('p strong').innerText.replace('$','').replace(' / month',''));
-      const existing=cart.find(i=>i.name===plan);
-      if(existing) existing.qty++;
-      else cart.push({name:plan,price:price,qty:1});
+  // Add items to cart
+  document.querySelectorAll('.plan-card .btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.plan-card');
+      const plan = card.querySelector('h3').innerText;
+      const price = parseFloat(card.querySelector('p strong').innerText.replace('$', '').replace(' / month', ''));
+      const existing = cart.find(i => i.name === plan);
+      if (existing) existing.qty++;
+      else cart.push({ name: plan, price: price, qty: 1 });
       updateCart();
       cartPanel.classList.add('open');
     });
   });
 
-  function updateCart(){
-    cartItems.innerHTML='';
-    if(cart.length===0){ cartItems.innerHTML='<p>Your cart is empty.</p>'; cartTotal.innerText='Total: $0'; return;}
-    let total=0;
-    cart.forEach(item=>{
-      total+=item.price*item.qty;
-      const div=document.createElement('div');
-      div.style.marginBottom='10px';
-      div.innerHTML=`<strong>${item.name}</strong> x${item.qty} - $${(item.price*item.qty).toFixed(2)} <button style="float:right;" onclick="removeItem('${item.name}')">Remove</button>`;
+  // Update cart
+  function updateCart() {
+    cartItems.innerHTML = '';
+    if (cart.length === 0) {
+      cartItems.innerHTML = '<p>Your cart is empty.</p>';
+      cartTotal.innerText = 'Total: $0';
+      return;
+    }
+    let total = 0;
+    cart.forEach(item => {
+      total += item.price * item.qty;
+      const div = document.createElement('div');
+      div.style.marginBottom = '10px';
+      div.classList.add('cart-item');
+      div.innerHTML = `
+        <strong>${item.name}</strong> x${item.qty} - $${(item.price * item.qty).toFixed(2)}
+        <button class="remove-btn" data-name="${item.name}" style="float:right;">Remove</button>
+      `;
       cartItems.appendChild(div);
     });
-    cartTotal.innerText=`Total: $${total.toFixed(2)}`;
+    cartTotal.innerText = `Total: $${total.toFixed(2)}`;
+
+    // Attach remove listeners dynamically
+    document.querySelectorAll('.remove-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const name = btn.getAttribute('data-name');
+        cart = cart.filter(i => i.name !== name);
+        updateCart();
+      });
+    });
   }
-  window.removeItem=function(name){ cart=cart.filter(i=>i.name!==name); updateCart(); }
 
-  goCheckout.addEventListener('click',()=>{cartPanel.classList.remove('open'); checkoutPage.classList.add('active');});
-  backBtn.addEventListener('click',()=>checkoutPage.classList.remove('active'));
+  // Checkout
+  goCheckout.addEventListener('click', () => {
+    if (cart.length === 0) return alert('Cart is empty');
+    cartPanel.classList.remove('open');
+    checkoutPage.classList.add('active');
+  });
+  backBtn.addEventListener('click', () => checkoutPage.classList.remove('active'));
 
-  checkoutForm.addEventListener('submit',e=>{
+  checkoutForm.addEventListener('submit', e => {
     e.preventDefault();
-    let valid=true;
-    document.querySelectorAll('.error-msg').forEach(em=>em.style.display='none');
-    const name=document.getElementById('name').value;
-    const email=document.getElementById('email').value;
-    const card=document.getElementById('card').value;
-    const cvv=document.getElementById('cvv').value;
-    if(!name.includes(' ')){document.getElementById('nameError').style.display='block'; valid=false;}
-    if(!email.includes('@')){document.getElementById('emailError').style.display='block'; valid=false;}
-    if(card.length!==16 || isNaN(card)){document.getElementById('cardError').style.display='block'; valid=false;}
-    if(cvv.length!==3 || isNaN(cvv)){document.getElementById('cvvError').style.display='block'; valid=false;}
-    if(!valid) return;
+    let valid = true;
+    document.querySelectorAll('.error-msg').forEach(em => em.style.display = 'none');
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const card = document.getElementById('card').value;
+    const cvv = document.getElementById('cvv').value;
+
+    if (!name.includes(' ')) { document.getElementById('nameError').style.display = 'block'; valid = false; }
+    if (!email.includes('@')) { document.getElementById('emailError').style.display = 'block'; valid = false; }
+    if (card.length !== 16 || isNaN(card)) { document.getElementById('cardError').style.display = 'block'; valid = false; }
+    if (cvv.length !== 3 || isNaN(cvv)) { document.getElementById('cvvError').style.display = 'block'; valid = false; }
+
+    if (!valid) return;
+
     checkoutPage.classList.remove('active');
-    successPage.style.display='flex';
-    cart=[];
+    successPage.style.display = 'flex';
+    cart = [];
     updateCart();
-    setTimeout(()=>{successPage.style.display='none';},2500);
+
+    setTimeout(() => { successPage.style.display = 'none'; }, 2500);
   });
 });
