@@ -6,10 +6,10 @@
   <title>Checkout - AceNodes</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #f4f4f4;
       padding: 40px;
+      margin: 0;
     }
 
     .checkout-box {
@@ -60,7 +60,7 @@
 
   <div class="checkout-box">
     <h2>Checkout</h2>
-    <form onsubmit="event.preventDefault(); alert('✅ Purchase successful! Thank you.'); window.location.href='index.html';">
+    <form id="checkoutForm">
       <label for="name">Full Name</label>
       <input type="text" id="name" required>
 
@@ -74,5 +74,16 @@
     </form>
   </div>
 
+  <script>
+    const checkoutForm = document.getElementById('checkoutForm');
+
+    checkoutForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('✅ Purchase successful! Thank you.');
+      window.location.href = "index.html"; // go back to home/cart
+    });
+  </script>
+
 </body>
 </html>
+
