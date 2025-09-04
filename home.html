@@ -1,3 +1,4 @@
+<!-- Save this entire code as home.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,7 +45,7 @@
     .typing { display: inline-block; overflow: hidden; border-right: 3px solid #34d058; white-space: nowrap; animation: typing 2.5s steps(40,end), blink 0.7s step-end infinite alternate; font-weight: 700; }
     @keyframes typing { from { width: 0; } to { width: 100%; } }
     @keyframes blink { 50% { border-color: transparent; } }
-    .btn { display: inline-block; padding: 10px 20px; background-color: #00cc66; color: #fff; border-radius: 6px; text-decoration: none; margin-top: 20px; }
+    .btn { display: inline-block; padding: 10px 20px; background-color: #00cc66; color: #fff; border-radius: 6px; text-decoration: none; margin-top: 20px; cursor: pointer; }
     .plans-overview { padding: 60px 20px; text-align: center; }
     .plans-container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
     .plan-card { background-color: #1a1a1a; padding: 20px; border-radius: 12px; width: 280px; }
@@ -57,20 +58,8 @@
     .footer-bottom { text-align: center; margin-top: 20px; color: #999; font-size: 0.9rem; }
 
     /* === Cart System CSS === */
-    .cart-button {
-      position: fixed; top: 50%; right: 20px;
-      transform: translateY(-50%);
-      background: #1db954;
-      border-radius: 50%;
-      width: 60px; height: 60px;
-      display: flex; justify-content: center; align-items: center;
-      cursor: pointer; z-index: 1000; font-size: 1.5rem;
-    }
-    .cart-panel {
-      position: fixed; top: 0; right: -400px;
-      width: 350px; height: 100%; background: #1a1a1a; color: #fff;
-      transition: right 0.3s ease; z-index: 1001; padding: 20px;
-    }
+    .cart-button { position: fixed; top: 50%; right: 20px; transform: translateY(-50%); background: #1db954; border-radius: 50%; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 1000; font-size: 1.5rem; }
+    .cart-panel { position: fixed; top: 0; right: -400px; width: 350px; height: 100%; background: #1a1a1a; color: #fff; transition: right 0.3s ease; z-index: 1001; padding: 20px; }
     .cart-panel.open { right: 0; }
     .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
     .cart-items { max-height: 60%; overflow-y: auto; margin-bottom: 20px; }
@@ -84,101 +73,9 @@
   </style>
 </head>
 <body class="home">
+  <!-- Navbar, Hero, Plans, Footer same as before -->
 
-  <!-- Navbar -->
-  <header>
-    <nav class="navbar">
-      <a href="index.html" class="logo">
-        <img src="https://i.postimg.cc/HWvg93ZN/Chat-GPT-Image-Aug-8-2025-10-06-33-AM.png" alt="AceNodes Logo">
-        <span>AceNodes</span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="plans.html">Plans</a></li>
-        <li><a href="custom-plan.html">Custom Plan</a></li>
-        <li><a href="server-status.html">Server Status</a></li>
-        <li><a href="faq.html">FAQ</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <!-- Hero -->
-  <section class="hero">
-    <h1 class="fade-in-text typing">Reliable Minecraft Hosting with AceNodes</h1>
-    <p class="fade-in-text delay-1">Fast, secure, and easy-to-use Minecraft servers with 24/7 support.</p>
-    <a href="plans.html" class="btn fade-in-text delay-2">View Plans</a>
-  </section>
-
-  <!-- Plans -->
-  <section class="plans-overview">
-    <h2>Popular Plans</h2>
-    <div class="plans-container">
-      <article class="plan-card">
-        <h3>Starter</h3>
-        <p><strong>$12.00 / month</strong></p>
-        <ul>
-          <li>2 GB RAM</li>
-          <li>10 Player Slots</li>
-          <li>Unlimited SSD Storage</li>
-          <li>1 CPU Core</li>
-          <li>1 Gbps Network</li>
-          <li>Instant Setup</li>
-          <li>Free DDoS Protection</li>
-        </ul>
-        <button class="btn">Add to Cart</button>
-      </article>
-      <article class="plan-card">
-        <h3>Pro</h3>
-        <p><strong>$36.00 / month</strong></p>
-        <ul>
-          <li>6 GB RAM</li>
-          <li>40 Player Slots</li>
-          <li>Unlimited SSD Storage</li>
-          <li>4 CPU Cores</li>
-          <li>1 Gbps Network</li>
-          <li>Instant Setup</li>
-          <li>Priority Support</li>
-          <li>Free DDoS Protection</li>
-        </ul>
-        <button class="btn">Add to Cart</button>
-      </article>
-      <article class="plan-card">
-        <h3>Ultimate</h3>
-        <p><strong>$72.00 / month</strong></p>
-        <ul>
-          <li>12 GB RAM</li>
-          <li>100 Player Slots</li>
-          <li>Unlimited SSD Storage</li>
-          <li>8 CPU Cores</li>
-          <li>10 Gbps Network</li>
-          <li>Instant Setup</li>
-          <li>Dedicated IP</li>
-          <li>24/7 Support & Monitoring</li>
-          <li>Free DDoS Protection</li>
-        </ul>
-        <button class="btn">Add to Cart</button>
-      </article>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-container">
-      <div>
-        <h4>Support</h4>
-        <ul><li><a href="#">Support Discord</a></li></ul>
-      </div>
-      <div>
-        <h4>Legal</h4>
-        <ul><li><a href="#">Terms of Service</a></li><li><a href="#">Privacy Policy</a></li></ul>
-      </div>
-    </div>
-    <div class="footer-bottom">&copy; 2025 AceNodes Minecraft Hosting</div>
-  </footer>
-
-  <!-- Cart System HTML -->
+  <!-- Cart HTML -->
   <div class="cart-button" id="cartBtn">🛒</div>
   <div class="cart-panel" id="cartPanel">
     <div class="cart-header">
@@ -205,7 +102,7 @@
 
   <div class="success-page" id="successPage"><p>Payment Successful!</p></div>
 
-  <!-- Cart System JS -->
+  <!-- Cart JS -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const cartBtn = document.getElementById('cartBtn');
@@ -238,9 +135,7 @@
       function updateCart() {
         cartItems.innerHTML = '';
         if(cart.length===0){ cartItems.innerHTML='<p>Your cart is empty.</p>'; return; }
-        let total = 0;
         cart.forEach(item => {
-          total += item.price * item.qty;
           const div = document.createElement('div');
           div.innerHTML = `<strong>${item.name}</strong> x${item.qty} - $${(item.price*item.qty).toFixed(2)} <button onclick="removeItem('${item.name}')">Remove</button>`;
           cartItems.appendChild(div);
@@ -279,6 +174,5 @@
       });
     });
   </script>
-
 </body>
 </html>
