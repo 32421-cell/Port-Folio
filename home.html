@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AceNodes - Best Minecraft Hosting</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* === Navbar exactly like plans page === */
+    .navbar {
+      background: #222;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      min-height: 64px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      font-weight: 700;
+      font-size: 1.6rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #34d058;
+      text-decoration: none;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .logo img {
+      height: 48px;
+      width: auto;
+      filter: drop-shadow(0 1px 3px rgba(0,0,0,0.4));
+      transition: filter 0.3s ease;
+    }
+
+    .logo:hover {
+      color: #2ccf4f;
+      text-shadow: 0 0 4px rgba(76, 220, 100, 0.4);
+    }
+
+    .logo:hover img {
+      filter: drop-shadow(0 0 4px rgba(76, 220, 100, 0.4));
+    }
+
+    .logo span {
+      margin-left: -6px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+      flex-wrap: nowrap;
+      align-items: center;
+    }
+
+    .nav-links li a {
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      color: #1db954;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+      transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    }
+
+    .nav-links li a:hover,
+    .nav-links li a:focus {
+      background: #1db954;
+      color: #121212;
+      transform: scale(1.05);
+      outline: none;
+    }
+
+    .nav-links li a.active {
+      background: #1db954;
+      color: #121212;
+      transform: scale(1.05);
+    }
+
+    /* === Disable navbar animations completely on home page === */
+    body.home .nav-links > li,
+    body.home .nav-links li a {
+      animation: none !important;
+      transition: none !important;
+      transform: none !important;
+      opacity: 1 !important;
+    }
+
+    /* === Body and Hero styling === */
+    body {
+      margin: 0;
+      background-color: #121212;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #f0f0f0;
+    }
+
+    .hero {
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    /* === Hero text animations === */
+    .fade-in-text {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s forwards;
+    }
+    .fade-in-text.delay-1 { animation-delay: 0.4s; }
+    .fade-in-text.delay-2 { animation-delay: 0.8s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* === Optional typing effect for heading === */
+    .typing {
+      display: inline-block;
+      overflow: hidden;
+      border-right: 3px solid #34d058;
+      white-space: nowrap;
+      animation: typing 2.5s steps(40, end), blink 0.7s step-end infinite alternate;
+      font-weight: 700;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    /* === Button styling === */
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #00cc66;
+      color: #fff;
+      border-radius: 6px;
+      text-decoration: none;
+      margin-top: 20px;
+    }
+
+    /* === Plans section === */
+    .plans-overview {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .plans-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .plan-card {
+      background-color: #1a1a1a;
+      padding: 20px;
+      border-radius: 12px;
+      width: 280px;
+    }
+
+    /* === Footer styling === */
+    footer {
+      background-color: #242424;
+      padding: 30px 0 20px;
+      color: #fff;
+    }
+    .footer-container {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+    footer h4 {
+      color: #34d058;
+      margin-bottom: 10px;
+    }
+    footer ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    footer ul li a {
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    footer ul li a:hover {
+      color: #2ccf4f;
+    }
+    .footer-bottom {
+      text-align: center;
+      margin-top: 20px;
+      color: #999;
+      font-size: 0.9rem;
+    }
+
+    /* === Cart System === */
+    .cart-button {
+      position: fixed;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      background: #1db954;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+    .cart-button:hover {
+      transform: translateY(-50%) scale(1.1);
+    }
+    .cart-panel {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 350px;
+      height: 100%;
+      background: #1a1a1a;
+      color: #fff;
+      transition: right 0.3s ease;
+      z-index: 1001;
+      padding: 20px;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+    }
+    .cart-panel.open {
+      right: 0;
+    }
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .cart-items {
+      max-height: 60%;
+      overflow-y: auto;
+      margin-bottom: 20px;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .checkout-btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: #1db954;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+
+<body class="home">
+
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="logo" aria-label="AceNodes Homepage">
+        <img src="https://i.postimg.cc/HWvg93ZN/Chat-GPT-Image-Aug-8-2025-10-06-33-AM.png" alt="AceNodes Logo" />
+        <span>AceNodes</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="plans.html">Plans</a></li>
+        <li><a href="custom-plan.html">Custom Plan</a></li>
+        <li><a href="server-status.html">Server Status</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1 class="fade-in-text typing">Reliable Minecraft Hosting with AceNodes</h1>
+    <p class="fade-in-text delay-1">Fast, secure, and easy-to-use Minecraft servers with 24/7 support.</p>
+    <a href="plans.html" class="btn fade-in-text delay-2">View Plans</a>
+  </section>
+
+  <!-- Plans Section -->
+  <section class="plans-overview">
+    <h2>Popular Plans</h2>
+    <div class="plans-container">
+      <article class="plan-card">
+        <h3>Starter</h3>
+        <p><strong>$12.00 / month</strong></p>
+        <ul>
+          <li>2 GB RAM</li>
+          <li>10 Player Slots</li>
+          <li>Unlimited SSD Storage</li>
+          <li>1 CPU Core</li>
+          <li>1 Gbps Network</li>
+          <li>Instant Setup</li>
+          <li>Free DDoS Protection</li>
+        </ul>
+        <a href="plans.html#starter" class="btn">Order Now</a>
+      </article>
+
+      <article class="plan-card">
+        <h3>Pro</h3>
+        <p><strong>$36.00 / month</strong></p>
+        <ul>
+          <li>6 GB RAM</li>
+          <li>40 Player Slots</li>
+          <li>Unlimited SSD Storage</li>
+          <li>4 CPU Cores</li>
+          <li>1 Gbps Network</li>
+          <li>Instant Setup</li>
+          <li>Priority Support</li>
+          <li>Free DDoS Protection</li>
+        </ul>
+        <a href="plans.html#pro" class="btn">Order Now</a>
+      </article>
+
+      <article class="plan-card">
+        <h3>Ultimate</h3>
+        <p><strong>$72.00 / month</strong></p>
+        <ul>
+          <li>12 GB RAM</li>
+          <li>100 Player Slots</li>
+          <li>Unlimited SSD Storage</li>
+          <li>8 CPU Cores</li>
+          <li>10 Gbps Network</li>
+          <li>Instant Setup</li>
+          <li>Dedicated IP</li>
+          <li>24/7 Support & Monitoring</li>
+          <li>Free DDoS Protection</li>
+        </ul>
+        <a href="plans.html#ultimate" class="btn">Order Now</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="https://discord.gg/your-discord-link" target="_blank" rel="noopener noreferrer">Support Discord</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 AceNodes Minecraft Hosting. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Cart System -->
+  <div class="cart-button" id="cart-btn">
+    🛒
+  </div>
+  <div class="cart-panel" id="cart-panel">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <button id="close-cart">✖</button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <button class="checkout-btn">Checkout</button>
+  </div>
+
+  <script>
+    // Highlight active nav link exactly like plans page
+    document.addEventListener('DOMContentLoaded', () => {
+      const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        const href = link.getAttribute('href').split('/').pop() || 'index.html';
+        if (href === currentPage) link.classList.add('active');
+        else link.classList.remove('active');
+      });
+    });
+
+    // Cart system logic
+    const cartBtn = document.getElementById('cart-btn');
+    const cartPanel = document.getElementById('cart-panel');
+    const closeCart = document.getElementById('close-cart');
+
+    cartBtn.addEventListener('click', () => {
+      cartPanel.classList.add('open');
+    });
+    closeCart.addEventListener('click', () => {
+      cartPanel.classList.remove('open');
+    });
+  </script>
+
+</body>
+</html>
