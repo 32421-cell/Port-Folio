@@ -150,11 +150,17 @@
     .checkout-box input {
       width: 100%;
       padding: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 6px;
       border: 1px solid #333;
       border-radius: 6px;
       background: #2a2a2a;
       color: #eee;
+    }
+    .error-msg {
+      color: #ff4d4d;
+      font-size: 12px;
+      margin-bottom: 8px;
+      display: none;
     }
     .checkout-box button {
       width: 100%;
@@ -166,6 +172,7 @@
       font-weight: bold;
       cursor: pointer;
       transition: background 0.3s ease;
+      margin-top: 10px;
     }
     .checkout-box button:hover {
       background: #17a64a;
@@ -220,70 +227,22 @@
       <form id="checkoutForm">
         <label for="name">Full Name</label>
         <input type="text" id="name" required>
+        <span class="error-msg" id="nameError">Please enter your full name.</span>
 
         <label for="email">Email</label>
         <input type="email" id="email" required>
+        <span class="error-msg" id="emailError">Please enter a valid email.</span>
 
         <label for="address">Address</label>
         <input type="text" id="address" required>
+        <span class="error-msg" id="addressError">Please enter your address.</span>
 
         <label for="city">City</label>
         <input type="text" id="city" required>
+        <span class="error-msg" id="cityError">Please enter your city.</span>
 
         <label for="zip">Zip Code</label>
         <input type="text" id="zip" required>
+        <span class="error-msg" id="zipError">Please enter a valid zip code.</span>
 
-        <label for="card">Card Number</label>
-        <input type="text" id="card" required>
-
-        <label for="exp">Expiration Date</label>
-        <input type="text" id="exp" placeholder="MM/YY" required>
-
-        <label for="cvv">CVV</label>
-        <input type="text" id="cvv" required>
-
-        <button type="submit">Confirm Purchase</button>
-      </form>
-      <button class="back-btn" id="backToCart">← Back to Cart</button>
-      <p class="success-msg" id="successMsg" style="display:none;">✅ Purchase Successful!</p>
-    </div>
-  </div>
-
-  <script>
-    const cartBtn = document.getElementById('cartBtn');
-    const cartPanel = document.getElementById('cartPanel');
-    const closeCart = document.getElementById('closeCart');
-    const goCheckout = document.getElementById('goCheckout');
-    const checkoutPage = document.getElementById('checkoutPage');
-    const backToCart = document.getElementById('backToCart');
-    const checkoutForm = document.getElementById('checkoutForm');
-    const successMsg = document.getElementById('successMsg');
-
-    // Cart open/close
-    cartBtn.addEventListener('click', () => cartPanel.classList.add('open'));
-    closeCart.addEventListener('click', () => cartPanel.classList.remove('open'));
-
-    // Checkout
-    goCheckout.addEventListener('click', () => {
-      cartPanel.classList.remove('open');
-      checkoutPage.classList.add('active');
-    });
-
-    backToCart.addEventListener('click', () => {
-      checkoutPage.classList.remove('active');
-      cartPanel.classList.add('open');
-    });
-
-    checkoutForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      successMsg.style.display = 'block';
-      setTimeout(() => {
-        checkoutPage.classList.remove('active');
-        successMsg.style.display = 'none';
-      }, 2000);
-    });
-  </script>
-
-</body>
-</html>
-
+        <label for="card">Card Number
