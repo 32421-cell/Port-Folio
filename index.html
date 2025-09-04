@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AceNodes Cart + Checkout</title>
+<title>Shop</title>
 <style>
   body {
     margin: 0;
@@ -17,7 +17,7 @@
   .cart-button {
     position: fixed;
     top: 50%;
-    right: 20px;
+    right: -80px; /* start offscreen */
     transform: translateY(-50%);
     background: #1db954;
     border-radius: 50%;
@@ -28,10 +28,11 @@
     align-items: center;
     cursor: pointer;
     z-index: 1000;
-    transition: opacity 0.3s ease;
+    transition: right 0.6s ease, transform 0.3s ease;
   }
-  .cart-button:hover { background: #17a64a; transform: translateY(-50%) scale(1.05);}
+  .cart-button:hover { transform: translateY(-50%) scale(1.05); background:#17a64a;}
   .cart-button svg { width:28px; height:28px; fill:#121212; }
+  .cart-button.show { right: 20px; }
 
   /* Cart Panel */
   .cart-panel {
@@ -44,7 +45,7 @@
     box-shadow:-2px 0 10px rgba(0,0,0,0.7);
     display:flex;
     flex-direction:column;
-    transition: right 0.4s ease;
+    transition: right 0.3s ease;
     z-index: 900;
   }
   .cart-panel.open { right:0; }
@@ -67,21 +68,20 @@
   .checkout-btn { background:#1db954; border:none; color:#121212; font-weight:bold; padding:0.5rem 1rem; border-radius:4px; cursor:pointer;}
   .checkout-btn:hover { background:#17a64a; }
 
-  /* Checkout overlay sliding from right */
+  /* Checkout overlay */
   .checkout-page {
     position: fixed;
-    top:0; left:100%;
+    top:0; left:0;
     width:100%; height:100%;
     background: rgba(18,18,18,0.95);
-    display:flex;
+    display:none;
     justify-content:center;
     align-items:center;
-    transition: left 0.5s ease;
     z-index: 1001;
+    opacity:0;
+    transition: opacity 0.4s ease;
   }
-  .checkout-page.active {
-    left:0;
-  }
+  .checkout-page.active { display:flex; opacity:1; }
 
   .checkout-box {
     background:#1e1e1e;
@@ -91,7 +91,6 @@
     max-width:400px;
     box-shadow:0 6px 20px rgba(0,0,0,0.6);
   }
-
   .checkout-box h2 { color:#1db954; margin-bottom:1rem; text-align:center;}
   .checkout-box label { display:block; margin-bottom:6px; font-size:14px; font-weight:bold; color:#ccc;}
   .checkout-box input { width:100%; padding:10px; margin-bottom:6px; border:1px solid #333; border-radius:6px; background:#2a2a2a; color:#eee;}
@@ -99,7 +98,6 @@
 
   .checkout-box button { width:100%; padding:12px; background:#1db954; color:#121212; border:none; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:10px;}
   .checkout-box button:hover { background:#17a64a;}
-
   .back-btn { display:inline-block; margin-top:10px; text-align:center; background:transparent; border:none; color:#1db954; cursor:pointer; font-size:14px;}
 
   /* Success page */
@@ -143,9 +141,11 @@
 </head>
 <body>
 
-<!-- Cart Button -->
+<!-- Floating Cart Button -->
 <div class="cart-button" id="cartBtn">
-  <svg viewBox="0 0 24 24"><path d="M7 4h-2l-3 7v2h2l3-7h13v2h-12.6l-.7 2h13.3v2h-14l-.7 2h14.7v2h-16.6l1.3-4h-2l-1.3 4h-2v2h3.6c-.3.6-.6 1.3-.6 2 0 2.2 1.8 4 4 4s4-1.8 4-4c0-.7-.2-1.4-.6-2h5.2c-.4.6-.6 1.3-.6 2 0 2.2 1.8 4 4 4s4-1.8 4-4c0-.7-.2-1.4-.6-2h1.6v-2h-16.6l.7-2h14.7v-2h-13.3l.7-2h12.6v-2h-13zm0 16c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm10 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+  <svg viewBox="0 0 24 24">
+    <path d="M7 4h-2l-3 7v2h2l3-7h13v2h-12.6l-.7 2h13.3v2h-14l-.7 2h14.7v2h-16.6l1.3-4h-2l-1.3 4h-2v2h3.6c-.3.6-.6 1.3-.6 2 0 2.2 1.8 4 4 4s4-1.8 4-4c0-.7-.2-1.4-.6-2h5.2c-.4.6-.6 1.3-.6 2 0 2.2 1.8 4 4 4s4-1.8 4-4c0-.7-.2-1.4-.6-2h1.6v-2h-16.6l.7-2h14.7v-2h-13.3l.7-2h12.6v-2h-13zm0 16c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm10 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+  </svg>
 </div>
 
 <!-- Cart Panel -->
@@ -210,43 +210,43 @@ const backToCart = document.getElementById('backToCart');
 const checkoutForm = document.getElementById('checkoutForm');
 const successPage = document.getElementById('successPage');
 
-// open/close cart
-cartBtn.addEventListener('click', () => {
+// Slide in cart button on load
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(()=>cartBtn.classList.add('show'), 300);
+});
+
+// Open/close cart
+cartBtn.addEventListener('click',()=>{
   cartPanel.classList.add('open');
-  cartBtn.style.opacity = '0';
+  cartBtn.style.display='none';
 });
-closeCart.addEventListener('click', () => {
+closeCart.addEventListener('click',()=>{
   cartPanel.classList.remove('open');
-  cartBtn.style.opacity = '1';
+  cartBtn.style.display='flex';
 });
 
-// checkout overlay with slide
-goCheckout.addEventListener('click', () => {
+// Checkout overlay
+goCheckout.addEventListener('click',()=>{
   cartPanel.classList.remove('open');
-  
-  checkoutForm.reset();
-  document.querySelectorAll('.error-msg').forEach(e => e.style.display = 'none');
-
   checkoutPage.classList.add('active');
-  cartBtn.style.opacity = '0';
 });
-
-backToCart.addEventListener('click', () => {
+backToCart.addEventListener('click',()=>{
   checkoutPage.classList.remove('active');
   cartPanel.classList.add('open');
-  cartBtn.style.opacity = '0';
+  checkoutForm.reset();
+  document.querySelectorAll('.error-msg').forEach(e=>e.style.display='none');
 });
 
-// form validation and success
-checkoutForm.addEventListener('submit', e => {
+// Form validation and success
+checkoutForm.addEventListener('submit', e=>{
   e.preventDefault();
-  let valid = true;
+  let valid=true;
 
-  const name = document.getElementById('name');
-  const email = document.getElementById('email');
-  const card = document.getElementById('card');
-  const cvv = document.getElementById('cvv');
-  const expiry = document.getElementById('expiry');
+  const name=document.getElementById('name');
+  const email=document.getElementById('email');
+  const card=document.getElementById('card');
+  const cvv=document.getElementById('cvv');
+  const expiry=document.getElementById('expiry');
 
   if(!name.value.trim().includes(' ')){document.getElementById('nameError').style.display='block'; valid=false;} else {document.getElementById('nameError').style.display='none';}
   const emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -258,10 +258,10 @@ checkoutForm.addEventListener('submit', e => {
   if(valid){
     checkoutPage.classList.remove('active');
     successPage.style.display='flex';
-    cartBtn.style.opacity = '0';
     checkoutForm.reset();
     document.querySelectorAll('.error-msg').forEach(e=>e.style.display='none');
 
+    // Confetti
     for(let i=0;i<50;i++){
       const confetti = document.createElement('div');
       confetti.classList.add('confetti');
@@ -275,12 +275,11 @@ checkoutForm.addEventListener('submit', e => {
 });
 
 // Back to shop button
-document.getElementById('backToShop').addEventListener('click', () => {
+document.getElementById('backToShop').addEventListener('click',()=>{
   successPage.style.display='none';
-  cartBtn.style.opacity = '1';
+  cartBtn.style.display='flex';
   cartPanel.classList.remove('open');
 });
 </script>
 </body>
 </html>
-
