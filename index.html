@@ -10,6 +10,7 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #121212;
     color: #eee;
+    overflow-x: hidden;
   }
 
   /* Floating Cart Button */
@@ -27,6 +28,7 @@
     align-items: center;
     cursor: pointer;
     z-index: 1000;
+    transition: opacity 0.3s ease;
   }
   .cart-button:hover { background: #17a64a; transform: translateY(-50%) scale(1.05);}
   .cart-button svg { width:28px; height:28px; fill:#121212; }
@@ -42,7 +44,7 @@
     box-shadow:-2px 0 10px rgba(0,0,0,0.7);
     display:flex;
     flex-direction:column;
-    transition: right 0.3s ease;
+    transition: right 0.4s ease;
     z-index: 900;
   }
   .cart-panel.open { right:0; }
@@ -65,18 +67,21 @@
   .checkout-btn { background:#1db954; border:none; color:#121212; font-weight:bold; padding:0.5rem 1rem; border-radius:4px; cursor:pointer;}
   .checkout-btn:hover { background:#17a64a; }
 
-  /* Checkout overlay */
+  /* Checkout overlay sliding from right */
   .checkout-page {
     position: fixed;
-    top:0; left:0;
+    top:0; left:100%;
     width:100%; height:100%;
     background: rgba(18,18,18,0.95);
-    display:none;
+    display:flex;
     justify-content:center;
     align-items:center;
+    transition: left 0.5s ease;
     z-index: 1001;
   }
-  .checkout-page.active { display:flex; }
+  .checkout-page.active {
+    left:0;
+  }
 
   .checkout-box {
     background:#1e1e1e;
@@ -86,6 +91,7 @@
     max-width:400px;
     box-shadow:0 6px 20px rgba(0,0,0,0.6);
   }
+
   .checkout-box h2 { color:#1db954; margin-bottom:1rem; text-align:center;}
   .checkout-box label { display:block; margin-bottom:6px; font-size:14px; font-weight:bold; color:#ccc;}
   .checkout-box input { width:100%; padding:10px; margin-bottom:6px; border:1px solid #333; border-radius:6px; background:#2a2a2a; color:#eee;}
@@ -205,33 +211,42 @@ const checkoutForm = document.getElementById('checkoutForm');
 const successPage = document.getElementById('successPage');
 
 // open/close cart
-cartBtn.addEventListener('click',()=>cartPanel.classList.add('open'));
-closeCart.addEventListener('click',()=>cartPanel.classList.remove('open'));
-
-// checkout overlay
-goCheckout.addEventListener('click',()=>{
-  cartPanel.classList.remove('open');
-  checkoutPage.classList.add('active');
-  cartBtn.style.display='none';
+cartBtn.addEventListener('click', () => {
+  cartPanel.classList.add('open');
+  cartBtn.style.opacity = '0';
 });
-backToCart.addEventListener('click',()=>{
+closeCart.addEventListener('click', () => {
+  cartPanel.classList.remove('open');
+  cartBtn.style.opacity = '1';
+});
+
+// checkout overlay with slide
+goCheckout.addEventListener('click', () => {
+  cartPanel.classList.remove('open');
+  
+  checkoutForm.reset();
+  document.querySelectorAll('.error-msg').forEach(e => e.style.display = 'none');
+
+  checkoutPage.classList.add('active');
+  cartBtn.style.opacity = '0';
+});
+
+backToCart.addEventListener('click', () => {
   checkoutPage.classList.remove('active');
   cartPanel.classList.add('open');
-  cartBtn.style.display='flex';
-  checkoutForm.reset();
-  document.querySelectorAll('.error-msg').forEach(e=>e.style.display='none');
+  cartBtn.style.opacity = '0';
 });
 
 // form validation and success
-checkoutForm.addEventListener('submit', e=>{
+checkoutForm.addEventListener('submit', e => {
   e.preventDefault();
-  let valid=true;
+  let valid = true;
 
-  const name=document.getElementById('name');
-  const email=document.getElementById('email');
-  const card=document.getElementById('card');
-  const cvv=document.getElementById('cvv');
-  const expiry=document.getElementById('expiry');
+  const name = document.getElementById('name');
+  const email = document.getElementById('email');
+  const card = document.getElementById('card');
+  const cvv = document.getElementById('cvv');
+  const expiry = document.getElementById('expiry');
 
   if(!name.value.trim().includes(' ')){document.getElementById('nameError').style.display='block'; valid=false;} else {document.getElementById('nameError').style.display='none';}
   const emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -243,11 +258,10 @@ checkoutForm.addEventListener('submit', e=>{
   if(valid){
     checkoutPage.classList.remove('active');
     successPage.style.display='flex';
-    cartBtn.style.display='none';
+    cartBtn.style.opacity = '0';
     checkoutForm.reset();
     document.querySelectorAll('.error-msg').forEach(e=>e.style.display='none');
 
-    // create simple confetti
     for(let i=0;i<50;i++){
       const confetti = document.createElement('div');
       confetti.classList.add('confetti');
@@ -261,9 +275,9 @@ checkoutForm.addEventListener('submit', e=>{
 });
 
 // Back to shop button
-document.getElementById('backToShop').addEventListener('click',()=>{
+document.getElementById('backToShop').addEventListener('click', () => {
   successPage.style.display='none';
-  cartBtn.style.display='flex';
+  cartBtn.style.opacity = '1';
   cartPanel.classList.remove('open');
 });
 </script>
