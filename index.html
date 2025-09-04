@@ -95,7 +95,6 @@
   .checkout-box button:hover { background:#17a64a;}
 
   .back-btn { display:inline-block; margin-top:10px; text-align:center; background:transparent; border:none; color:#1db954; cursor:pointer; font-size:14px;}
-  .success-msg { text-align:center; color:#1db954; font-size:1.2rem; margin-top:10px;}
 </style>
 </head>
 <body>
@@ -148,7 +147,6 @@
       <button type="submit">Confirm Purchase</button>
     </form>
     <button class="back-btn" id="backToCart">← Back to Cart</button>
-    <p class="success-msg" id="successMsg">✅ Purchase Successful!</p>
   </div>
 </div>
 
@@ -160,7 +158,6 @@ const goCheckout = document.getElementById('goCheckout');
 const checkoutPage = document.getElementById('checkoutPage');
 const backToCart = document.getElementById('backToCart');
 const checkoutForm = document.getElementById('checkoutForm');
-const successMsg = document.getElementById('successMsg');
 
 // open/close cart
 cartBtn.addEventListener('click',()=>cartPanel.classList.add('open'));
@@ -170,10 +167,12 @@ closeCart.addEventListener('click',()=>cartPanel.classList.remove('open'));
 goCheckout.addEventListener('click',()=>{
   cartPanel.classList.remove('open');
   checkoutPage.classList.add('active');
+  cartBtn.style.display='none'; // hide cart button
 });
 backToCart.addEventListener('click',()=>{
   checkoutPage.classList.remove('active');
   cartPanel.classList.add('open');
+  cartBtn.style.display='flex'; // show cart button again
 });
 
 // validation
@@ -187,29 +186,18 @@ checkoutForm.addEventListener('submit', e=>{
   const cvv=document.getElementById('cvv');
   const expiry=document.getElementById('expiry');
 
-  // Name validation (at least 2 words)
   if(!name.value.trim().includes(' ')){document.getElementById('nameError').style.display='block'; valid=false;} else {document.getElementById('nameError').style.display='none';}
-
-  // Email
   const emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if(!emailRegex.test(email.value)){document.getElementById('emailError').style.display='block'; valid=false;} else {document.getElementById('emailError').style.display='none';}
-
-  // Card
   if(!/^\d{16}$/.test(card.value)){document.getElementById('cardError').style.display='block'; valid=false;} else {document.getElementById('cardError').style.display='none';}
-
-  // CVV
   if(!/^\d{3}$/.test(cvv.value)){document.getElementById('cvvError').style.display='block'; valid=false;} else {document.getElementById('cvvError').style.display='none';}
-
-  // Expiry
   if(!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry.value)){document.getElementById('expiryError').style.display='block'; valid=false;} else {document.getElementById('expiryError').style.display='none';}
 
   if(valid){
-    successMsg.style.display='block';
-    setTimeout(()=>{
-      checkoutPage.classList.remove('active');
-      successMsg.style.display='none';
-      checkoutForm.reset();
-    },2000);
+    alert("Form is valid! Implement payment here.");
+    checkoutForm.reset();
+    checkoutPage.classList.remove('active');
+    cartBtn.style.display='flex';
   }
 });
 </script>
