@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Airborne Assault | Game Portfolio</title>
+  <title>Starfall Protocol | Game Portfolio</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@400;600&display=swap');
 
@@ -123,28 +123,28 @@
 </head>
 <body>
   <header>
-    <h1 class="glow">Airborne Assault</h1>
-    <p>A story-driven airplane shooter game by <strong>Hussein Hamie</strong></p>
+    <h1 class="glow">Starfall Protocol</h1>
+    <p>A story-driven space shooter game by <strong>Hussein Hamie</strong></p>
   </header>
 
   <section>
     <h2>🎮 Game Overview</h2>
-    <p><strong>Game Type:</strong> A story-based airplane shooter where the player must destroy meteors and enemy ships while advancing through a mission storyline.</p>
+    <p><strong>Game Type:</strong> A story-based space shooter where the player pilots a spacecraft through meteor fields and enemy fleets while uncovering a deep interstellar mystery.</p>
 
     <h3>Visual Changes (HTML/CSS)</h3>
     <ul>
-      <li>Created a dynamic scrolling sky background for movement realism.</li>
-      <li>Added animated explosion and impact effects.</li>
-      <li>Styled airplane, meteors, and bullets using CSS and image sprites.</li>
-      <li>Designed a futuristic HUD showing score, health, and mission progress.</li>
+      <li>Created a dynamic scrolling starfield background to simulate space travel.</li>
+      <li>Added animated explosion and impact effects for enemy ships.</li>
+      <li>Styled spacecraft, meteors, and lasers using CSS and image sprites.</li>
+      <li>Designed a futuristic HUD showing score, shield levels, and mission progress.</li>
     </ul>
 
     <h3>Gameplay Changes (JavaScript)</h3>
     <ul>
-      <li>Implemented a storyline system with dialogue at key points.</li>
-      <li>Added enemy AI that moves in attack patterns and fires back.</li>
-      <li>Built collision detection for bullets, meteors, and enemy ships.</li>
-      <li>Created a scoring, health, and game-over system with restart options.</li>
+      <li>Implemented a branching storyline system with dialogue at mission checkpoints.</li>
+      <li>Added enemy AI with distinct movement and attack patterns.</li>
+      <li>Developed collision detection for lasers, meteors, and enemy ships.</li>
+      <li>Built scoring, shield depletion, and game-over mechanics with restart options.</li>
     </ul>
   </section>
 
@@ -153,40 +153,40 @@
 
     <h3>A. Game Setup</h3>
     <ul>
-      <li>Load airplane, background, meteors, and enemy ships.</li>
-      <li>Initialize score = 0 and health = 100.</li>
-      <li>Display story intro and enable controls.</li>
+      <li>Load player ship, background, meteors, and enemy fleets.</li>
+      <li>Initialize score = 0 and shields = 100.</li>
+      <li>Display intro dialogue and enable controls.</li>
     </ul>
 
     <h3>B. Player Input</h3>
     <ul>
-      <li>Arrow keys move airplane in all directions.</li>
-      <li>Spacebar fires bullets.</li>
-      <li>Start button begins the mission.</li>
+      <li>Arrow keys move ship in all directions.</li>
+      <li>Spacebar fires lasers.</li>
+      <li>Enter key starts mission sequence.</li>
     </ul>
 
     <h3>C. Game Logic</h3>
     <ul>
-      <li>Spawn meteors and enemy ships at intervals.</li>
-      <li>Check for bullet collisions with enemies → increase score.</li>
-      <li>Check for collisions with player → reduce health.</li>
-      <li>If health = 0 → show game over screen.</li>
+      <li>Spawn meteors and enemies at timed intervals.</li>
+      <li>Check for laser collisions with enemies → increase score.</li>
+      <li>Check for collisions with ship → reduce shield strength.</li>
+      <li>If shields = 0 → trigger mission failure screen.</li>
     </ul>
 
     <h3>D. Scoring & End Conditions</h3>
     <ul>
       <li>+10 points per meteor destroyed.</li>
       <li>+25 points per enemy destroyed.</li>
-      <li>Health 0 → mission failed screen.</li>
-      <li>Complete mission → victory screen + final score.</li>
+      <li>Shields 0 → “Mission Failed” screen.</li>
+      <li>All enemies cleared → “Mission Complete” screen + total score.</li>
     </ul>
 
     <h3>E. Additional Features</h3>
     <ul>
-      <li>Restart button after game over.</li>
-      <li>Mission timer and distance tracker.</li>
-      <li>Sound effects for explosions and shooting.</li>
-      <li>Story dialogues between levels.</li>
+      <li>Restart mission button after failure.</li>
+      <li>Mission timer and hyperspace distance tracker.</li>
+      <li>Laser and explosion sound effects.</li>
+      <li>Dialogues between missions expanding the story.</li>
     </ul>
   </section>
 
