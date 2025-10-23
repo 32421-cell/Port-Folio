@@ -1,134 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>My Website Portfolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Airborne Assault | Game Portfolio</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@400;600&display=swap');
+
+    * {
       margin: 0;
       padding: 0;
-      line-height: 1.6;
-      background: #f4f4f9;
-      color: #333;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
     }
+
+    body {
+      background: radial-gradient(circle at top, #030616, #000);
+      color: #eaeaea;
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
     header {
-      background: #222;
-      color: #fff;
-      padding: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 2rem 1rem;
       text-align: center;
+      border-bottom: 2px solid #1b85ff;
     }
+
     header h1 {
-      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      color: #5fe3ff;
+      font-size: 2.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
+
+    header p {
+      color: #ccc;
+      font-size: 1.1rem;
+      margin-top: 0.5rem;
+    }
+
     section {
       max-width: 900px;
-      margin: 20px auto;
-      padding: 20px;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin: 3rem auto;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(95, 227, 255, 0.15);
+      animation: fadeIn 1s ease;
     }
-    section h2 {
-      color: #444;
-      margin-bottom: 10px;
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 5px;
+
+    h2 {
+      color: #5fe3ff;
+      margin-bottom: 1rem;
+      font-family: 'Orbitron', sans-serif;
     }
+
     ul {
-      margin: 10px 0;
-      padding-left: 20px;
+      list-style: none;
+      padding-left: 1rem;
     }
-    .screenshots img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 6px;
-      margin: 10px 0;
+
+    li::before {
+      content: "✦ ";
+      color: #5fe3ff;
     }
-    .links a {
-      display: inline-block;
-      margin: 8px 10px 0 0;
-      padding: 10px 16px;
-      background: #28a745;
-      color: white;
+
+    a {
+      color: #5fe3ff;
       text-decoration: none;
-      border-radius: 6px;
-      font-weight: bold;
+      font-weight: 600;
     }
-    .links a:hover {
-      background: #218838;
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 4rem;
+      padding: 2rem;
+      color: #999;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .links {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .button {
+      display: inline-block;
+      background: #5fe3ff;
+      color: #000;
+      padding: 0.8rem 1.6rem;
+      border-radius: 8px;
+      font-weight: 600;
+      margin: 0.5rem;
+      transition: 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .button:hover {
+      background: #00c4ff;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .glow {
+      text-shadow: 0 0 10px #5fe3ff, 0 0 20px #5fe3ff;
     }
   </style>
 </head>
 <body>
-
   <header>
-    <h1>My Website Portfolio</h1>
-    <p>By [Hussein Hamie], Year 9</p>
+    <h1 class="glow">Airborne Assault</h1>
+    <p>A story-driven airplane shooter game by <strong>Hussein Hamie</strong></p>
   </header>
 
   <section>
-    <h2>Project Title</h2>
-    <p>[Acenodes (My project name)]</p>
+    <h2>🎮 Game Overview</h2>
+    <p><strong>Game Type:</strong> A story-based airplane shooter where the player must destroy meteors and enemy ships while advancing through a mission storyline.</p>
+
+    <h3>Visual Changes (HTML/CSS)</h3>
+    <ul>
+      <li>Created a dynamic scrolling sky background for movement realism.</li>
+      <li>Added animated explosion and impact effects.</li>
+      <li>Styled airplane, meteors, and bullets using CSS and image sprites.</li>
+      <li>Designed a futuristic HUD showing score, health, and mission progress.</li>
+    </ul>
+
+    <h3>Gameplay Changes (JavaScript)</h3>
+    <ul>
+      <li>Implemented a storyline system with dialogue at key points.</li>
+      <li>Added enemy AI that moves in attack patterns and fires back.</li>
+      <li>Built collision detection for bullets, meteors, and enemy ships.</li>
+      <li>Created a scoring, health, and game-over system with restart options.</li>
+    </ul>
   </section>
 
   <section>
-    <h2>Purpose of the Website</h2>
-    <p>[I made this website for a school project, and I also want to use it for my business idea]</p>
+    <h2>🧠 Pseudocode Explanation</h2>
+
+    <h3>A. Game Setup</h3>
+    <ul>
+      <li>Load airplane, background, meteors, and enemy ships.</li>
+      <li>Initialize score = 0 and health = 100.</li>
+      <li>Display story intro and enable controls.</li>
+    </ul>
+
+    <h3>B. Player Input</h3>
+    <ul>
+      <li>Arrow keys move airplane in all directions.</li>
+      <li>Spacebar fires bullets.</li>
+      <li>Start button begins the mission.</li>
+    </ul>
+
+    <h3>C. Game Logic</h3>
+    <ul>
+      <li>Spawn meteors and enemy ships at intervals.</li>
+      <li>Check for bullet collisions with enemies → increase score.</li>
+      <li>Check for collisions with player → reduce health.</li>
+      <li>If health = 0 → show game over screen.</li>
+    </ul>
+
+    <h3>D. Scoring & End Conditions</h3>
+    <ul>
+      <li>+10 points per meteor destroyed.</li>
+      <li>+25 points per enemy destroyed.</li>
+      <li>Health 0 → mission failed screen.</li>
+      <li>Complete mission → victory screen + final score.</li>
+    </ul>
+
+    <h3>E. Additional Features</h3>
+    <ul>
+      <li>Restart button after game over.</li>
+      <li>Mission timer and distance tracker.</li>
+      <li>Sound effects for explosions and shooting.</li>
+      <li>Story dialogues between levels.</li>
+    </ul>
   </section>
-
-  <section>
-  <h2>Features</h2>
-  <ul>
-    <li>Contact page so people can reach us easily</li>
-    <li>Custom plan page where users can make their own plan</li>
-    <li>About page that explains who we are</li>
-    <li>FAQ page with answers to frequently asked questions</li>
-    <li>A unique logo to represent the website</li>
-  </ul>
-</section>
-
-  <section>
-  <h2>Tools and Technologies</h2>
-  <p>I built my website using HTML, CSS, and JavaScript.</p>
-</section>
-
-  <section>
-  <h2>Challenges and Solutions</h2>
-  <p><strong>Challenge:</strong> Styling the navbar was tricky because each page had different styles.</p>
-  <p><strong>Solution:</strong> I fixed it through trial and error, using AI and tutorials to help me. It took a few days, but in the end, I got it working consistently on all pages.</p>
-</section>
-
-
-  <section>
-  <h2>What I Learned</h2>
-  <p>
-    I learned how HTML, CSS, and JavaScript work together to make a website. 
-    I also learned how important trial and error is when creating and fixing a website.
-  </p>
-</section>
-
-  <section class="screenshots">
-  <h2>Screenshots</h2>
-  <img src="https://i.imgur.com/Eb78LpY.png" alt="Screenshot of home page">
-  <img src="https://i.imgur.com/uFOUQfI.png" alt="Screenshot of another page">
-</section>
-
 
   <section class="links">
-    <h2>Links</h2>
-    <a href="https://32421-cell.github.io/acenodes/" target="_blank">Visit Website</a>
-    <a href="https://github.com/32421-cell/acenodes" target="_blank">View Code</a>
+    <h2>🔗 Play & View</h2>
+    <a href="https://32421-cell.github.io/second-game-idea/" class="button" target="_blank">🎮 Play the Game</a>
+    <a href="https://github.com/32421-cell/second-game-idea" class="button" target="_blank">💾 View the Code</a>
   </section>
 
-  <section>
-  <h2>Reflection</h2>
-  <p>I really enjoyed making this project—it was a lot of fun to work on and allowed me to practice both coding and design skills.
-   If I had more time, I would have liked to implement my cart system across all pages, which would have made the website even more interactive and functional.
- I still plan to implement it in the future for my business.</p>
-</section>
-
-
+  <footer>
+    <p>© 2025 Hussein Hamie — Twilight Veil Studios</p>
+  </footer>
 </body>
 </html>
+
